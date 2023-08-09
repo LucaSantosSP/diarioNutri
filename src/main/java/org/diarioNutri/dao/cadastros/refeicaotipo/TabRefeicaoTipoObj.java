@@ -1,14 +1,29 @@
 package org.diarioNutri.dao.cadastros.refeicaotipo;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
+import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "tab_refeicao_tipo")
 public class TabRefeicaoTipoObj {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "cd_refeicao_tipo")
     private Integer cdRefeicaoTipo;
+
+    @Column(name = "tx_refeicao_tipo")
     private String txRefeicaoTipo;
-    private Integer cdRefeicao;
-    private Integer cdUsuario;
+
+    @Column(name = "cd_refeicao")
+    private TabRefeicaoObj tabRefeicaoObj;
+
+    @Column(name = "cd_usuario")
+    private TabUsuarioObj tabUsuarioObj;
 }
