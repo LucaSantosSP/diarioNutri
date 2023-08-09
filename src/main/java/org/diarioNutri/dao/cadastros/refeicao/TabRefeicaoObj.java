@@ -1,11 +1,11 @@
 package org.diarioNutri.dao.cadastros.refeicao;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.Date;
 
@@ -15,10 +15,14 @@ import java.util.Date;
 @Table( name = "tab_refeicao")
 public class TabRefeicaoObj {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cd_refeicao")
     private Integer cdRefeicao;
 
-    @Column(name = "cd_usuario")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @ManyToOne
+    @JoinColumn(name = "cd_usuario")
     private TabUsuarioObj tabUsuarioObj;
 
     @Column(name = "dt_refeicao")

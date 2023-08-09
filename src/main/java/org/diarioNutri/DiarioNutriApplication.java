@@ -29,7 +29,7 @@ public class DiarioNutriApplication {
             List<TabUsuarioObj> listTabUsuarioObj = tabUsuarioRepository.listar();
             listTabUsuarioObj.forEach(System.out::println);
 
-            System.out.println("PESQUISANDO USUARIO");
+            /*System.out.println("PESQUISANDO USUARIO");
             tabUsuarioRepository.findByTxUsuario("tha").forEach(System.out::println);
 
             System.out.println("ATUALIZANDO USUARIO");
@@ -50,7 +50,7 @@ public class DiarioNutriApplication {
                 System.out.println("Nenhum Usuario encontrado!");
             }else{
                 listTabUsuarioObj.forEach(System.out::println);
-            }
+            }*/
         };
     }
     public static void main(String[] args) {

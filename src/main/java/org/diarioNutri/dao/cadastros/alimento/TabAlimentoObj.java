@@ -1,8 +1,6 @@
 package org.diarioNutri.dao.cadastros.alimento;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,10 +10,12 @@ import lombok.Setter;
 @Table(name = "tab_alimento")
 public class TabAlimentoObj {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cd_alimento")
     private Integer cdAlimento;
 
-    @Column(name = "cd_alimento")
+    @Column(name = "tx_alimento")
     private String txAliemnto;
 
     @Column(name = "vl_kcal")

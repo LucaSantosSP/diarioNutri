@@ -1,10 +1,12 @@
 package org.diarioNutri.dao.cadastros.usuario.repository;
 
+import jakarta.persistence.EntityManager;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +15,6 @@ import java.util.List;
 @Repository
 public class TabUsuarioRepository extends TabUsuarioObj{
 
-    private static String INSERT = "insert into tab_usuario (tx_Usuario) values (?) ";
     private static String SELECT_ALL = "SELECT * FROM tab_usuario";
     private static String UPTDATE = "update tab_usuario set tx_usuario = ? where cd_usuario = ? ";
     private static String DELETE = "delete from tab_usuario where cd_usuario = ? ";
@@ -22,8 +23,12 @@ public class TabUsuarioRepository extends TabUsuarioObj{
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private EntityManager entityManager;
+
+    @Transactional
     public TabUsuarioObj salvar(TabUsuarioObj tabUsuarioObj){
-        jdbcTemplate.update( INSERT, new Object[]{tabUsuarioObj.getTxUsuario()});
+        entityManager.persist(tabUsuarioObj);
         return tabUsuarioObj;
     }
 

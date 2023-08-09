@@ -1,13 +1,13 @@
 package org.diarioNutri.dao.cadastros.refeicaoalimento;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.diarioNutri.dao.cadastros.alimento.TabAlimentoObj;
 import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Setter
 @Getter
@@ -15,15 +15,23 @@ import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 @Table(name = "tab_refeicao_alimento")
 public class TabRefeicaoAlimentoObj {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cd_refeicao_alimento")
     private Integer cdRefeicaoAlimento;
 
-    @Column(name = "cd_alimento")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @ManyToOne
+    @JoinColumn(name = "cd_alimento")
     private TabAlimentoObj tabAlimentoObj;
 
-    @Column(name = "cd_refeicao")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @ManyToOne
+    @JoinColumn(name = "cd_refeicao")
     private TabRefeicaoObj tabRefeicaoObj;
 
-    @Column(name = "cd_usuario")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @ManyToOne
+    @JoinColumn(name = "cd_usuario")
     private TabUsuarioObj tabUsuarioObj;
 }

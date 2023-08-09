@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Getter
@@ -21,9 +23,13 @@ public class TabRefeicaoTipoObj {
     @Column(name = "tx_refeicao_tipo")
     private String txRefeicaoTipo;
 
-    @Column(name = "cd_refeicao")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @ManyToOne
+    @JoinColumn(name = "cd_refeicao")
     private TabRefeicaoObj tabRefeicaoObj;
 
-    @Column(name = "cd_usuario")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @ManyToOne
+    @JoinColumn(name = "cd_usuario")
     private TabUsuarioObj tabUsuarioObj;
 }
