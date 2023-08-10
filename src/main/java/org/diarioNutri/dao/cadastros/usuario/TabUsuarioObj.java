@@ -60,4 +60,15 @@ public class TabUsuarioObj {
                 ", txUsuario='" + txUsuario + '\'' +
                 '}';
     }
+
+    public TabUsuarioObj( String txUsuario, String txEmail, String txSenha, String txFoto, Integer ckSexo, Date dtNascimento, Double vlAltura, Double vlPeso) {
+        this.txUsuario = txUsuario;
+        this.txEmail = txEmail;
+        this.txSenha = txSenha;
+        this.txFoto = txFoto;
+        this.ckSexo = ckSexo;
+        this.dtNascimento = dtNascimento;
+        this.vlAltura = vlAltura;
+        this.vlPeso = vlPeso;
+    }
 }
