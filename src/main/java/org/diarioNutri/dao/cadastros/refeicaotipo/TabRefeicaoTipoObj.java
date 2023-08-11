@@ -23,4 +23,5 @@ public class TabRefeicaoTipoObj {
     @Column(name = "tx_refeicao_tipo", length = 30)
     private String txRefeicaoTipo;
 
+
 }
