@@ -20,16 +20,7 @@ public class TabRefeicaoTipoObj {
     @Column(name = "cd_refeicao_tipo")
     private Integer cdRefeicaoTipo;
 
-    @Column(name = "tx_refeicao_tipo")
+    @Column(name = "tx_refeicao_tipo", length = 30)
     private String txRefeicaoTipo;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @ManyToOne
-    @JoinColumn(name = "cd_refeicao")
-    private TabRefeicaoObj tabRefeicaoObj;
-
-    @JdbcTypeCode(SqlTypes.JSON)
-    @ManyToOne
-    @JoinColumn(name = "cd_usuario")
-    private TabUsuarioObj tabUsuarioObj;
 }

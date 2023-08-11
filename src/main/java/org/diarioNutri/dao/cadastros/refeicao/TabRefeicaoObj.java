@@ -3,6 +3,7 @@ package org.diarioNutri.dao.cadastros.refeicao;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -21,11 +22,17 @@ public class TabRefeicaoObj {
     @Column(name = "cd_refeicao")
     private Integer cdRefeicao;
 
-    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "tx_refeicao")
+    private String txRefeicao;
+
     @ManyToOne
     @JoinColumn(name = "cd_usuario")
     private TabUsuarioObj tabUsuarioObj;
 
     @Column(name = "dt_refeicao")
     private LocalDate dtRefeicao;
+
+    @ManyToOne
+    @JoinColumn(name = "cd_refeicao_tipo")
+    private TabRefeicaoTipoObj tabRefeicaoTipoObj;
 }
