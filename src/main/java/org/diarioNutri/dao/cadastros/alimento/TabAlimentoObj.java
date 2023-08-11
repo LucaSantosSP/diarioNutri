@@ -18,15 +18,15 @@ public class TabAlimentoObj {
     @Column(name = "tx_alimento")
     private String txAliemnto;
 
-    @Column(name = "vl_kcal")
+    @Column(name = "vl_kcal", length = 3)
     private Integer vlKcal;
 
-    @Column(name = "vl_proteina")
+    @Column(name = "vl_proteina", length = 11, precision = 2)
     private double vlProteina;
 
-    @Column(name = "vl_carboidrato")
+    @Column(name = "vl_carboidrato", length = 11, precision = 2)
     private double vlCarboidrato;
 
-    @Column(name = "vl_gordura")
+    @Column(name = "vl_gordura", length = 11, precision = 2)
     private double vlGordura;
 }

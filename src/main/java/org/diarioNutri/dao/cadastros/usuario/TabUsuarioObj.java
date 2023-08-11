@@ -35,10 +35,10 @@ public class TabUsuarioObj {
     @Column(name = "dt_nascimento")
     private Date dtNascimento;
 
-    @Column(name = "vl_altura")
+    @Column(name = "vl_altura", length = 11, precision = 2)
     private Double vlAltura;
 
-    @Column(name = "vl_peso")
+    @Column(name = "vl_peso", length = 11, precision = 2)
     private Double vlPeso;
 
     public TabUsuarioObj() {

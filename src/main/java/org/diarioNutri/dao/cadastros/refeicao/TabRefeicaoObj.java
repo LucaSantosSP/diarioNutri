@@ -7,6 +7,7 @@ import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -26,5 +27,5 @@ public class TabRefeicaoObj {
     private TabUsuarioObj tabUsuarioObj;
 
     @Column(name = "dt_refeicao")
-    private Date dtRefeicao;
+    private LocalDate dtRefeicao;
 }
