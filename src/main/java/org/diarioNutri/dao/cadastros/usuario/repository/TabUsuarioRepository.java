@@ -8,4 +8,5 @@ import java.util.List;
 public interface TabUsuarioRepository extends JpaRepository<TabUsuarioObj, Integer> {
 
     List<TabUsuarioObj> findByTxUsuarioLike(String txUsuario);
+
 }

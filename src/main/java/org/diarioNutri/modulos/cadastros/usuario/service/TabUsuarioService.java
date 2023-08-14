@@ -37,7 +37,7 @@ public class TabUsuarioService {
             lucasUsuario.setCkSexo(1);
             lucasUsuario.setDtNascimento(new Date());
             lucasUsuario.setVlAltura(1.80);
-            lucasUsuario.setVlPeso(90.00);
+            lucasUsuario.setVlPeso(86.00);
             tabUsuarioRepository.save(lucasUsuario);
 
             TabRefeicaoTipoObj tipoRefeicao = new TabRefeicaoTipoObj();

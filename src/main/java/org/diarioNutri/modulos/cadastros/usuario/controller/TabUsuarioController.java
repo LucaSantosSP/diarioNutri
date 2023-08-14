@@ -1,19 +1,32 @@
 package org.diarioNutri.modulos.cadastros.usuario.controller;
 
+import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
+import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuario")
 public class TabUsuarioController {
 
-    @RequestMapping(value = "/hello/{txUsuario}", method = RequestMethod.GET)
+    @Autowired
+    private TabUsuarioRepository tabUsuarioRepository;
+
+
+
     @ResponseBody
-    public String helloUsuario ( @PathVariable("txUsuario") String txUsuario){
-        return String.format("Hello %s ", txUsuario);
+    @GetMapping("/encontrar/{cdUsuario}")
+    public ResponseEntity getTxUsuarioById (@PathVariable Integer cdUsuario){
+        Optional<TabUsuarioObj> usuario =  tabUsuarioRepository.findById(cdUsuario);
+        if (usuario.isPresent()){
+            return ResponseEntity.ok(usuario.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }
