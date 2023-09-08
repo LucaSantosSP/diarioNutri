@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,6 +28,23 @@ public class TabUsuarioController {
             return ResponseEntity.ok(usuario.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @ResponseBody
+    @GetMapping("/pesquisa")
+    public ResponseEntity encontraTodos (){
+        Optional<List<TabUsuarioObj>> tabUsuarioObjList = Optional.of(tabUsuarioRepository.findAll());
+        if(tabUsuarioObjList.isPresent()){
+            return ResponseEntity.ok(tabUsuarioObjList);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @ResponseBody
+    @PostMapping("/save")
+    public ResponseEntity save( @RequestBody TabUsuarioObj tabUsuarioObj){
+        TabUsuarioObj newTabUsuarioObj = tabUsuarioRepository.save(tabUsuarioObj);
+        return ResponseEntity.ok(newTabUsuarioObj);
     }
 
 }
