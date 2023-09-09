@@ -4,33 +4,29 @@ import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
 import org.diarioNutri.modulos.cadastros.usuario.service.TabUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/usuario")
 public class TabUsuarioController {
 
     @Autowired
     private TabUsuarioService tabUsuarioService;
 
-
-
-    @ResponseBody
     @GetMapping("/encontrar/{cdUsuario}")
-    public ResponseEntity getTxUsuarioById (@PathVariable Integer cdUsuario){
-        Optional<TabUsuarioObj> tabUsuarioObj =  tabUsuarioService.encontrarUsuario(cdUsuario);
-        if (tabUsuarioObj.isPresent()){
-            return ResponseEntity.ok(tabUsuarioObj.get());
-        }
-        return ResponseEntity.notFound().build();
+    public TabUsuarioObj getTxUsuarioById (@PathVariable Integer cdUsuario){
+        return tabUsuarioService.encontrarUsuario(cdUsuario)
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
     }
-    @ResponseBody
+
     @GetMapping("/pesquisa")
     public ResponseEntity encontraTodos (){
         Optional<List<TabUsuarioObj>> tabUsuarioObjList = tabUsuarioService.encontraUsuarios();
@@ -40,31 +36,27 @@ public class TabUsuarioController {
         return ResponseEntity.notFound().build();
     }
 
-    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/save")
-    public ResponseEntity save( @RequestBody TabUsuarioObj tabUsuarioObj){
-        TabUsuarioObj newTabUsuarioObj = tabUsuarioService.salvar(tabUsuarioObj);
-        return ResponseEntity.ok(newTabUsuarioObj);
+    public TabUsuarioObj save( @RequestBody TabUsuarioObj tabUsuarioObj){
+        return tabUsuarioService.salvar(tabUsuarioObj);
     }
 
-    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/delete/{cdUsuario}")
-    public ResponseEntity delete(@PathVariable Integer cdUsuario){
-        Boolean deleteSuccess = tabUsuarioService.deletar(cdUsuario);
-        if(deleteSuccess){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    public void delete(@PathVariable Integer cdUsuario){
+        tabUsuarioService.encontrarUsuario(cdUsuario).map(tabUsuarioObj -> tabUsuarioService.deletar(tabUsuarioObj.getCdUsuario()))
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
     }
 
-    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/update/{cdUsuario}")
-    public ResponseEntity update( @PathVariable Integer cdUsuario, @RequestBody TabUsuarioObj tabUsuarioObj) {
-        return tabUsuarioService.encontrarUsuario(cdUsuario).
+    public void update( @PathVariable Integer cdUsuario, @RequestBody TabUsuarioObj tabUsuarioObj) {
+        tabUsuarioService.encontrarUsuario(cdUsuario).
                 map( tabUsuarioObjExistente -> {
                     tabUsuarioObj.setCdUsuario(tabUsuarioObjExistente.getCdUsuario());
                     tabUsuarioService.salvar(tabUsuarioObj);
-                    return ResponseEntity.noContent().build();
-                }).orElseGet( () -> ResponseEntity.notFound().build() );
+                    return tabUsuarioObjExistente;
+                }).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!") );
     }
 }
