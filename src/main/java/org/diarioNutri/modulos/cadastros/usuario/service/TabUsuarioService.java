@@ -34,4 +34,13 @@ public class TabUsuarioService {
         Optional<List<TabUsuarioObj>> tabUsuarioObjList = Optional.of(tabUsuarioRepository.findAll());
         return tabUsuarioObjList;
     }
+
+    public Boolean deletar(Integer cdUsuario){
+        Optional<TabUsuarioObj> tabUsuarioObj = encontrarUsuario(cdUsuario);
+        if(tabUsuarioObj.isPresent()){
+            tabUsuarioRepository.delete(tabUsuarioObj.get());
+            return true;
+        }
+        return false;
+    }
 }

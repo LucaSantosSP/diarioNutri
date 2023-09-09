@@ -30,8 +30,7 @@ public class TabUsuarioController {
         }
         return ResponseEntity.notFound().build();
     }
-
-   @ResponseBody
+    @ResponseBody
     @GetMapping("/pesquisa")
     public ResponseEntity encontraTodos (){
         Optional<List<TabUsuarioObj>> tabUsuarioObjList = tabUsuarioService.encontraUsuarios();
@@ -46,6 +45,16 @@ public class TabUsuarioController {
     public ResponseEntity save( @RequestBody TabUsuarioObj tabUsuarioObj){
         TabUsuarioObj newTabUsuarioObj = tabUsuarioService.salvar(tabUsuarioObj);
         return ResponseEntity.ok(newTabUsuarioObj);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/delete/{cdUsuario}")
+    public ResponseEntity delete(@PathVariable Integer cdUsuario){
+        Boolean deleteSuccess = tabUsuarioService.deletar(cdUsuario);
+        if(deleteSuccess){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }
