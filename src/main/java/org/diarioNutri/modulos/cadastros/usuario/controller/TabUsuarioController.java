@@ -2,6 +2,7 @@ package org.diarioNutri.modulos.cadastros.usuario.controller;
 
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
+import org.diarioNutri.modulos.cadastros.usuario.service.TabUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,24 +17,23 @@ import java.util.Optional;
 public class TabUsuarioController {
 
     @Autowired
-    private TabUsuarioRepository tabUsuarioRepository;
+    private TabUsuarioService tabUsuarioService;
 
 
 
     @ResponseBody
     @GetMapping("/encontrar/{cdUsuario}")
     public ResponseEntity getTxUsuarioById (@PathVariable Integer cdUsuario){
-        Optional<TabUsuarioObj> usuario =  tabUsuarioRepository.findById(cdUsuario);
-        if (usuario.isPresent()){
-            return ResponseEntity.ok(usuario.get());
+        Optional<TabUsuarioObj> tabUsuarioObj =  tabUsuarioService.encontrarUsuario(cdUsuario);
+        if (tabUsuarioObj.isPresent()){
+            return ResponseEntity.ok(tabUsuarioObj.get());
         }
         return ResponseEntity.notFound().build();
     }
-
     @ResponseBody
     @GetMapping("/pesquisa")
     public ResponseEntity encontraTodos (){
-        Optional<List<TabUsuarioObj>> tabUsuarioObjList = Optional.of(tabUsuarioRepository.findAll());
+        Optional<List<TabUsuarioObj>> tabUsuarioObjList = tabUsuarioService.encontraUsuarios();
         if(tabUsuarioObjList.isPresent()){
             return ResponseEntity.ok(tabUsuarioObjList);
         }
@@ -43,8 +43,18 @@ public class TabUsuarioController {
     @ResponseBody
     @PostMapping("/save")
     public ResponseEntity save( @RequestBody TabUsuarioObj tabUsuarioObj){
-        TabUsuarioObj newTabUsuarioObj = tabUsuarioRepository.save(tabUsuarioObj);
+        TabUsuarioObj newTabUsuarioObj = tabUsuarioService.salvar(tabUsuarioObj);
         return ResponseEntity.ok(newTabUsuarioObj);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/delete/{cdUsuario}")
+    public ResponseEntity delete(@PathVariable Integer cdUsuario){
+        Boolean deleteSuccess = tabUsuarioService.deletar(cdUsuario);
+        if(deleteSuccess){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }
