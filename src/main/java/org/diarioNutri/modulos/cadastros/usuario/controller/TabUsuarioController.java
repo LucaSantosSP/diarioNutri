@@ -57,4 +57,14 @@ public class TabUsuarioController {
         return ResponseEntity.notFound().build();
     }
 
+    @ResponseBody
+    @PutMapping("/update/{cdUsuario}")
+    public ResponseEntity update( @PathVariable Integer cdUsuario, @RequestBody TabUsuarioObj tabUsuarioObj) {
+        return tabUsuarioService.encontrarUsuario(cdUsuario).
+                map( tabUsuarioObjExistente -> {
+                    tabUsuarioObj.setCdUsuario(tabUsuarioObjExistente.getCdUsuario());
+                    tabUsuarioService.salvar(tabUsuarioObj);
+                    return ResponseEntity.noContent().build();
+                }).orElseGet( () -> ResponseEntity.notFound().build() );
+    }
 }
