@@ -21,10 +21,10 @@ public class TabUsuarioController {
     @Autowired
     private TabUsuarioService tabUsuarioService;
 
-    @GetMapping("/encontrar/{cdUsuario}")
+    @GetMapping("/{cdUsuario}")
     public TabUsuarioObj getTxUsuarioById (@PathVariable Integer cdUsuario){
         return tabUsuarioService.encontrarUsuario(cdUsuario)
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!"));
     }
 
     @GetMapping("/pesquisa")
