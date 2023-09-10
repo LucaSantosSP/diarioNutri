@@ -15,10 +15,6 @@ public class TabUsuarioService {
 
     @Autowired
     private TabUsuarioRepository tabUsuarioRepository;
-    @Autowired
-    private TabRefeicaoTipoRepository tabRefeicaoTipoRepository;
-    @Autowired
-    private TabRefeicaoRepository tabRefeicaoRepository;
 
     public TabUsuarioObj salvar(TabUsuarioObj tabUsuarioObj){
         TabUsuarioObj newTabUsuarioObj = tabUsuarioRepository.save(tabUsuarioObj);
@@ -26,8 +22,7 @@ public class TabUsuarioService {
     }
 
     public Optional<TabUsuarioObj> encontrarUsuario (Integer cdUsuario){
-        Optional<TabUsuarioObj> tabUsuarioObj = tabUsuarioRepository.findById(cdUsuario);
-        return tabUsuarioObj;
+        return tabUsuarioRepository.findById(cdUsuario);
     }
 
     public Optional<List<TabUsuarioObj>> encontraUsuarios (){
