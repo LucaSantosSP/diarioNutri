@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface TabUsuarioRepository extends JpaRepository<TabUsuarioObj, Integer> {
 
+    TabUsuarioObj findByCdUsuario(Integer cdUsuario);
     List<TabUsuarioObj> findByTxUsuarioLike(String txUsuario);
 
 }

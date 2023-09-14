@@ -1,5 +1,6 @@
 package org.diarioNutri.modulos.cadastros.refeicao.controller;
 
+import org.diarioNutri.dao.cadastros.refeicao.DTO.TabRefeicaoDTO;
 import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.modulos.cadastros.refeicao.service.TabRefeicaoService;
@@ -20,11 +21,12 @@ public class TabRefeicaoController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
-    public TabRefeicaoObj gravar (@RequestBody TabRefeicaoObj tabRefeicaoObj){
-        return tabRefeicaoService.gravar(tabRefeicaoObj);
+    public TabRefeicaoObj gravar (@RequestBody TabRefeicaoDTO tabRefeicaoDTO){
+        TabRefeicaoObj tabRefeicaoObj = tabRefeicaoService.gravar(tabRefeicaoDTO);
+        return tabRefeicaoObj;
     }
 
-    @GetMapping("/{cdRefeicao}")
+    /*@GetMapping("/{cdRefeicao}")
     public TabRefeicaoObj encontrarPorCdRefeicao (@PathVariable Integer cdRefeicao){
         return tabRefeicaoService.encontrarPorCdRefeicao(cdRefeicao)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Refeição não encontrada!"));
@@ -54,5 +56,5 @@ public class TabRefeicaoController {
     public void excluir (@PathVariable Integer cdRefeicao){
         tabRefeicaoService.encontrarPorCdRefeicao(cdRefeicao).map(tabRefeicaoObj -> tabRefeicaoService.deletar(tabRefeicaoObj))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Refeição não encontrada!"));
-    }
+    }*/
 }
