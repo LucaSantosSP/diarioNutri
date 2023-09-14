@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TabRefeicaoTipoRepository extends JpaRepository<TabRefeicaoTipoObj, Integer> {
+    TabRefeicaoTipoObj findByCdRefeicaoTipo( Integer cdRefeicaoTipo );
 }
