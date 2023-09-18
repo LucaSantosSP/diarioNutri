@@ -51,4 +51,16 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
     public List<TabRefeicaoObj> encontrarTodos() {
         return tabRefeicaoRepository.findAll();
     }
+
+    @Override
+    public TabRefeicaoObj salvar(TabRefeicaoObj tabRefeicaoObj) {
+        TabRefeicaoObj newTabRefeicaoObj = tabRefeicaoRepository.save(tabRefeicaoObj);
+        return newTabRefeicaoObj;
+    }
+
+    @Override
+    public Boolean deletar(TabRefeicaoObj tabRefeicaoObj) {
+        tabRefeicaoRepository.delete(tabRefeicaoObj);
+        return true;
+    }
 }

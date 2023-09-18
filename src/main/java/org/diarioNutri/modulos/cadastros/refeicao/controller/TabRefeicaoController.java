@@ -41,14 +41,20 @@ public class TabRefeicaoController {
         return ResponseEntity.notFound().build();
     }
 
-
-
-    /*
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/salvar/{cdRefeicao}")
+    public void salvar (@PathVariable Integer cdRefeicao, @RequestBody TabRefeicaoObj tabRefeicaoObj){
+        tabRefeicaoService.encontrarPorCdRefeicao(cdRefeicao)
+                .map( tabRefeicaoObjExistente -> {
+                    tabRefeicaoObj.setCdRefeicao(tabRefeicaoObjExistente.getCdRefeicao());
+                    tabRefeicaoService.salvar(tabRefeicaoObj);
+                    return tabRefeicaoObj;
+                }).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Refeição não encontrada!"));
+    }
 
     @DeleteMapping("/excluir/{cdRefeicao}")
     public void excluir (@PathVariable Integer cdRefeicao){
         tabRefeicaoService.encontrarPorCdRefeicao(cdRefeicao).map(tabRefeicaoObj -> tabRefeicaoService.deletar(tabRefeicaoObj))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Refeição não encontrada!"));
-    }*/
+    }
 }

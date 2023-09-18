@@ -14,11 +14,7 @@ public interface TabRefeicaoService {
 
     List<TabRefeicaoObj> encontrarTodos();
 
-    /*
+    TabRefeicaoObj salvar (TabRefeicaoObj tabRefeicaoObj);
 
-    public Boolean deletar (TabRefeicaoObj tabRefeicaoObj) {
-        tabRefeicaoRepository.delete(tabRefeicaoObj);
-        return true;
-    }*/
-
+    Boolean deletar (TabRefeicaoObj tabRefeicaoObj);
 }
