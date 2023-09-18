@@ -1,6 +1,5 @@
 package org.diarioNutri.modulos.cadastros.refeicao.service.impl;
 
-import lombok.RequiredArgsConstructor;
 import org.diarioNutri.dao.cadastros.refeicao.DTO.TabRefeicaoDTO;
 import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
 import org.diarioNutri.dao.cadastros.refeicao.repository.TabRefeicaoRepository;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,5 +40,15 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
         tabRefeicaoObj.setTabRefeicaoTipoObj(tabRefeicaoTipoObj);
         tabRefeicaoObj = tabRefeicaoRepository.save(tabRefeicaoObj);
         return tabRefeicaoObj;
+    }
+
+    @Override
+    public Optional<TabRefeicaoObj> encontrarPorCdRefeicao(Integer cdRefeicao) {
+        return tabRefeicaoRepository.findById(cdRefeicao);
+    }
+
+    @Override
+    public List<TabRefeicaoObj> encontrarTodos() {
+        return tabRefeicaoRepository.findAll();
     }
 }

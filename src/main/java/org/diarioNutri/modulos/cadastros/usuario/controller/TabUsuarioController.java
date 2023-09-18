@@ -37,7 +37,7 @@ public class TabUsuarioController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/save")
+    @PostMapping("/gravar")
     public TabUsuarioObj save( @RequestBody TabUsuarioObj tabUsuarioObj){
         return tabUsuarioService.salvar(tabUsuarioObj);
     }
