@@ -21,8 +21,10 @@ create table tab_alimento(
 
 create table tab_refeicao(
     cd_refeicao integer primary key auto_increment,
+    tx_refeicao varchar(30),
     cd_usuario integer references tab_usuario (cd_usuario),
-    dt_refeicao integer
+    dt_refeicao integer,
+    cd_refeicao_tipo integer references tab_refeicao_tipo (cd_refeicao_tipo)
 );
 
 create table tab_refeicao_alimento(
@@ -34,7 +36,5 @@ create table tab_refeicao_alimento(
 
 create table tab_refeicao_tipo(
     cd_refeicao_tipo integer primary key auto_increment,
-    tx_refeicao_tipo integer,
-    cd_refeicao integer references tab_refeicao (cd_refeicao),
-    cd_usuario integer references tab_usuario (cd_usuario)
+    tx_refeicao_tipo varchar(30)
 );

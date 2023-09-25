@@ -16,7 +16,7 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 public class TabRefeicaoTipoObj {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cd_refeicao_tipo")
     private Integer cdRefeicaoTipo;
 

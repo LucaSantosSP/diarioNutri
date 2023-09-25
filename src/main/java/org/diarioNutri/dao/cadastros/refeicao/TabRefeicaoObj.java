@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class TabRefeicaoObj {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cd_refeicao")
     private Integer cdRefeicao;
 

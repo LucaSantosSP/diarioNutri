@@ -16,7 +16,7 @@ import org.hibernate.type.SqlTypes;
 public class TabRefeicaoAlimentoObj {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cd_refeicao_alimento")
     private Integer cdRefeicaoAlimento;
 

@@ -13,7 +13,7 @@ import java.util.Date;
 public class TabUsuarioObj {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cd_usuario")
     private Integer cdUsuario;
 

@@ -11,7 +11,7 @@ import lombok.Setter;
 public class TabAlimentoObj {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cd_alimento")
     private Integer cdAlimento;
 
