@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class MyConfiguration {
 
-    @Value("${application.name}")
+    @Value("${spring.profiles.active}")
     private String ambiente;
 
     @Bean
