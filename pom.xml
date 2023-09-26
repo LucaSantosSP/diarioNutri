@@ -62,9 +62,6 @@
             <plugin>
                 <configuration>
                     <appName>Diario Nutri</appName>
-                    <processTypes>
-                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
-                    </processTypes>
                 </configuration>
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
