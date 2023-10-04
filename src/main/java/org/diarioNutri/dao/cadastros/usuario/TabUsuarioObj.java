@@ -41,6 +41,13 @@ public class TabUsuarioObj {
     @Column(name = "vl_peso", length = 11, precision = 2)
     private Double vlPeso;
 
+    private Double vlPesoIdeal;
+
+    @Column(name = "vl_imc_atual", length = 11, precision = 2)
+    private Double vlImcAtual;
+
+    private Double vlImcIdeal;
+
     public TabUsuarioObj() {
     }
 
