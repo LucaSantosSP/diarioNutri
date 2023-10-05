@@ -39,8 +39,8 @@ public class TabUsuarioController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
     public TabUsuarioObj save( @RequestBody TabUsuarioObj tabUsuarioObj){
-        //Double imc = tabUsuarioObj.getVlPeso() / Math.pow(tabUsuarioObj.getVlAltura(), 2);
-        //tabUsuarioObj.setVlImcAtual(imc);
+        Double imc = tabUsuarioObj.getVlPeso() / Math.pow(tabUsuarioObj.getVlAltura(), 2);
+        tabUsuarioObj.setVlImcAtual(imc);
         return tabUsuarioService.salvar(tabUsuarioObj);
     }
 
@@ -56,6 +56,8 @@ public class TabUsuarioController {
     public void update( @PathVariable Integer cdUsuario, @RequestBody TabUsuarioObj tabUsuarioObj) {
         tabUsuarioService.encontrarUsuario(cdUsuario).
                 map( tabUsuarioObjExistente -> {
+                    Double imc = tabUsuarioObj.getVlPeso() / Math.pow(tabUsuarioObj.getVlAltura(), 2);
+                    tabUsuarioObj.setVlImcAtual(imc);
                     tabUsuarioObj.setCdUsuario(tabUsuarioObjExistente.getCdUsuario());
                     tabUsuarioService.salvar(tabUsuarioObj);
                     return tabUsuarioObjExistente;
