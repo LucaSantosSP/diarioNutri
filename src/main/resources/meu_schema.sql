@@ -7,7 +7,10 @@ create table tab_usuario(
     ck_sexo integer,
     dt_nascimento date,
     vl_altura numeric(11,2),
-    vl_peso numeric(11,2)
+    vl_peso numeric(11,2),
+    vl_peso_ideal numeric(11,2),
+    vl_imc_atual numeric(11,2),
+    vl_imc_ideal numeric(11,2),
 );
 
 create table tab_alimento(
