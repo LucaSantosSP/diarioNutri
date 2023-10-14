@@ -7,10 +7,7 @@ create table tab_usuario(
     ck_sexo integer,
     dt_nascimento date,
     vl_altura numeric(11,2),
-    vl_peso numeric(11,2),
-    vl_peso_ideal numeric(11,2),
-    vl_imc_atual numeric(11,2),
-    vl_imc_ideal numeric(11,2),
+    vl_peso numeric(11,2)
 );
 
 create table tab_alimento(
@@ -41,3 +38,8 @@ create table tab_refeicao_tipo(
     cd_refeicao_tipo integer primary key auto_increment,
     tx_refeicao_tipo varchar(30)
 );
+
+alter table tab_usuario
+    add column vl_imc_atual numeric(11,2),
+    add column vl_imc_ideal numeric(11,2),
+    add column vl_peso_ideal numeric(11,2);
