@@ -56,7 +56,15 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
 
     @Override
     public TabRefeicaoObj salvar(TabRefeicaoObj tabRefeicaoObj) {
-        TabRefeicaoObj newTabRefeicaoObj = tabRefeicaoRepository.save(tabRefeicaoObj);
+        Optional<TabRefeicaoObj> oldTabRefeicaoObj = tabRefeicaoRepository.findById(tabRefeicaoObj.getCdRefeicao());
+        TabRefeicaoObj newTabRefeicaoObj = tabRefeicaoObj;
+
+        newTabRefeicaoObj.setTabRefeicaoTipoObj(oldTabRefeicaoObj.get().getTabRefeicaoTipoObj());
+        newTabRefeicaoObj.setTabUsuarioObj(oldTabRefeicaoObj.get().getTabUsuarioObj());
+        newTabRefeicaoObj.setDtRefeicao(oldTabRefeicaoObj.get().getDtRefeicao());
+
+        newTabRefeicaoObj = tabRefeicaoRepository.save(newTabRefeicaoObj);
+
         return newTabRefeicaoObj;
     }
 

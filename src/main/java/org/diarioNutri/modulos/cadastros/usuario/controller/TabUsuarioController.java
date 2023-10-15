@@ -52,7 +52,7 @@ public class TabUsuarioController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/update/{cdUsuario}")
+    @PutMapping("/salvar/{cdUsuario}")
     public void update( @PathVariable Integer cdUsuario, @RequestBody TabUsuarioObj tabUsuarioObj) {
         tabUsuarioService.encontrarUsuario(cdUsuario).
                 map( tabUsuarioObjExistente -> {
