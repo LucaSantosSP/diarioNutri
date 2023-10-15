@@ -40,6 +40,9 @@ create table tab_refeicao_tipo(
 );
 
 alter table tab_usuario
-    add column vl_imc_atual numeric(11,2),
-    add column vl_imc_ideal numeric(11,2),
-    add column vl_peso_ideal numeric(11,2);
+add column vl_imc_atual numeric(11,2),
+add column vl_imc_ideal numeric(11,2),
+add column vl_peso_ideal numeric(11,2);
+
+ALTER TABLE tab_refeicao
+MODIFY COLUMN dt_refeicao date;
