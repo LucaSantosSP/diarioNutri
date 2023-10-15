@@ -10,6 +10,7 @@ import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
 import org.diarioNutri.modulos.cadastros.refeicao.service.TabRefeicaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,6 +28,7 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
     private TabUsuarioRepository tabUsuarioRepository;
 
     @Override
+    @Transactional
     public TabRefeicaoObj gravar(TabRefeicaoDTO tabRefeicaoDTO) {
         TabRefeicaoObj tabRefeicaoObj = new TabRefeicaoObj();
         TabUsuarioObj tabUsuarioObj =
