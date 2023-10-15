@@ -1,5 +1,6 @@
 package org.diarioNutri.modulos.cadastros.usuario.controller;
 
+import jakarta.validation.Valid;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
 import org.diarioNutri.modulos.cadastros.usuario.service.TabUsuarioService;
@@ -38,7 +39,7 @@ public class TabUsuarioController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
-    public TabUsuarioObj save( @RequestBody TabUsuarioObj tabUsuarioObj){
+    public TabUsuarioObj save( @RequestBody @Valid TabUsuarioObj tabUsuarioObj){
         Double imc = tabUsuarioObj.getVlPeso() / Math.pow(tabUsuarioObj.getVlAltura(), 2);
         tabUsuarioObj.setVlImcAtual(imc);
         return tabUsuarioService.salvar(tabUsuarioObj);
@@ -53,7 +54,7 @@ public class TabUsuarioController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/salvar/{cdUsuario}")
-    public void update( @PathVariable Integer cdUsuario, @RequestBody TabUsuarioObj tabUsuarioObj) {
+    public void update( @PathVariable Integer cdUsuario, @RequestBody @Valid TabUsuarioObj tabUsuarioObj) {
         tabUsuarioService.encontrarUsuario(cdUsuario).
                 map( tabUsuarioObjExistente -> {
                     Double imc = tabUsuarioObj.getVlPeso() / Math.pow(tabUsuarioObj.getVlAltura(), 2);

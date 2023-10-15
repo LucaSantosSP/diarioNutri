@@ -1,5 +1,6 @@
 package org.diarioNutri.modulos.cadastros.refeicaotipo.controller;
 
+import jakarta.validation.Valid;
 import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.modulos.cadastros.refeicaotipo.service.TabRefeicaoTipoService;
@@ -22,7 +23,7 @@ public class TabRefeicaoTipoController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
-    public TabRefeicaoTipoObj save (@RequestBody TabRefeicaoTipoObj tabRefeicaoTipoObj){
+    public TabRefeicaoTipoObj save (@RequestBody @Valid TabRefeicaoTipoObj tabRefeicaoTipoObj){
         return tabRefeicaoTipoService.gravar(tabRefeicaoTipoObj);
     }
 
@@ -43,7 +44,7 @@ public class TabRefeicaoTipoController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/salvar/{cdRefeicaoTipo}")
-    public void update(@PathVariable Integer cdRefeicaoTipo, @RequestBody TabRefeicaoTipoObj tabRefeicaoTipoObj){
+    public void update(@PathVariable Integer cdRefeicaoTipo, @RequestBody @Valid TabRefeicaoTipoObj tabRefeicaoTipoObj){
         tabRefeicaoTipoService.encontrarPorCdTipoRefeicao(cdRefeicaoTipo)
                 .map( tabRefeicaoTipoObjExistente -> {
                     tabRefeicaoTipoObj.setCdRefeicaoTipo(tabRefeicaoTipoObjExistente.getCdRefeicaoTipo());
