@@ -1,4 +1,4 @@
-package org.diarioNutri.modulos.cadastros;
+package org.diarioNutri.modulos;
 
 import lombok.Data;
 
