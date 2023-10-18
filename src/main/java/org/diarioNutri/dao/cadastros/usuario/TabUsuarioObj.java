@@ -5,14 +5,19 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "tab_usuario")
-public class TabUsuarioObj {
+public class TabUsuarioObj implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,15 +44,15 @@ public class TabUsuarioObj {
     private Integer ckSexo;
 
     @Column(name = "dt_nascimento")
-    @NotNull(message = "Campo data de nascimento é obrigatório!")
+    //@NotNull(message = "Campo data de nascimento é obrigatório!")
     private Date dtNascimento;
 
     @Column(name = "vl_altura", length = 11, precision = 2)
-    @NotNull(message = "Campo altura é obrigatório!")
+    //@NotNull(message = "Campo altura é obrigatório!")
     private Double vlAltura;
 
     @Column(name = "vl_peso", length = 11, precision = 2)
-    @NotNull(message = "Campo peso é obrigatório!")
+    //@NotNull(message = "Campo peso é obrigatório!")
     private Double vlPeso;
 
     @Column(name = "vl_peso_ideal", length = 11, precision = 2)
@@ -59,6 +64,8 @@ public class TabUsuarioObj {
     @Column(name = "vl_imc_ideal", length = 11, precision = 2)
     private Double vlImcIdeal;
 
+    //private TabUsuarioRoleObj role;
+
     public TabUsuarioObj() {
     }
 
@@ -67,11 +74,59 @@ public class TabUsuarioObj {
         this.txUsuario = txUsuario;
     }
 
+    public TabUsuarioObj( String txEmail, String txSenha) {
+        this.txEmail = txEmail;
+        this.txSenha = txSenha;
+    }
+
+    public TabUsuarioObj( String txUsuario, String txEmail, String txSenha) {
+        this.txUsuario = txUsuario;
+        this.txEmail = txEmail;
+        this.txSenha = txSenha;
+    }
+
     @Override
     public String toString() {
         return "TabUsuarioObj{" +
                 "cdUsuario=" + cdUsuario +
                 ", txUsuario='" + txUsuario + '\'' +
                 '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+        /*if(this.role == TabUsuarioRoleObj.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));*/
+    }
+
+    @Override
+    public String getPassword() {
+        return txSenha;
+    }
+
+    @Override
+    public String getUsername() {
+        return txEmail;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
