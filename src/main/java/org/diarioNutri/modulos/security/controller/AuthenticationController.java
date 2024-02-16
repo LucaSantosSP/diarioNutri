@@ -44,7 +44,7 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.txSenha());
-        TabUsuarioObj usuario = new TabUsuarioObj(data.txUsuario(), data.txEmail(), encryptedPassword);
+        TabUsuarioObj usuario = new TabUsuarioObj(data.txUsuario(), data.txEmail(), encryptedPassword, data.vlAltura(), data.vlPeso());
 
         this.tabUsuarioRepository.save(usuario);
 

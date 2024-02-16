@@ -79,10 +79,12 @@ public class TabUsuarioObj implements UserDetails {
         this.txSenha = txSenha;
     }
 
-    public TabUsuarioObj( String txUsuario, String txEmail, String txSenha) {
+    public TabUsuarioObj( String txUsuario, String txEmail, String txSenha, Double vlAltura, Double vlPeso) {
         this.txUsuario = txUsuario;
         this.txEmail = txEmail;
         this.txSenha = txSenha;
+        this.vlAltura = vlAltura;
+        this.vlPeso = vlPeso;
     }
 
     @Override
