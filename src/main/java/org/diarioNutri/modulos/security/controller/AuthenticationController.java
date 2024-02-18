@@ -35,7 +35,9 @@ public class AuthenticationController {
 
         var token = tokenService.generateToken((TabUsuarioObj) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        TabUsuarioObj tabUsuarioObj = tabUsuarioRepository.encontrarPorEmail(data.txEmail());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token, tabUsuarioObj.getTxEmail()));
     }
 
     @PostMapping("/register")
