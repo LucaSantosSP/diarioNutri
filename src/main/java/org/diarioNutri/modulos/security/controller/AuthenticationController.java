@@ -37,7 +37,7 @@ public class AuthenticationController {
 
         TabUsuarioObj tabUsuarioObj = tabUsuarioRepository.encontrarPorEmail(data.txEmail());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token, tabUsuarioObj.getTxEmail()));
+        return ResponseEntity.ok(new LoginResponseDTO(token, tabUsuarioObj.getCdUsuario()));
     }
 
     @PostMapping("/register")

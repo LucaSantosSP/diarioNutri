@@ -1,4 +1,4 @@
 package org.diarioNutri.dao.cadastros.usuario.dto;
 
-public record LoginResponseDTO(String token, String txEmail) {
+public record LoginResponseDTO(String token, Integer cdUsuario) {
 }
