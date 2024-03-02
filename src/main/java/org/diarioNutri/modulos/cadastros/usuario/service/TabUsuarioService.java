@@ -7,6 +7,7 @@ import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +38,18 @@ public class TabUsuarioService {
             return true;
         }
         return false;
+    }
+
+    public String pesoIdeal(Double vlAltura){
+
+        Double txPesoMinimo = 18.5 * Math.pow(vlAltura, 2);
+        Double txPesoMaximo = 24.9 * Math.pow(vlAltura, 2);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        String pesoMinimoFormatado = df.format(txPesoMinimo);
+        String pesoMaximoFormatado = df.format(txPesoMaximo);
+
+        return pesoMinimoFormatado + " a " + pesoMaximoFormatado + " Kg";
     }
 }

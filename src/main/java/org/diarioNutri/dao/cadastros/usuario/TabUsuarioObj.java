@@ -56,13 +56,13 @@ public class TabUsuarioObj implements UserDetails {
     private Double vlPeso;
 
     @Column(name = "vl_peso_ideal", length = 11, precision = 2)
-    private Double vlPesoIdeal;
+    private String vlPesoIdeal;
 
     @Column(name = "vl_imc_atual", length = 11, precision = 2)
     private Double vlImcAtual;
 
     @Column(name = "vl_imc_ideal", length = 11, precision = 2)
-    private Double vlImcIdeal;
+    private String vlImcIdeal;
 
     //private TabUsuarioRoleObj role;
 

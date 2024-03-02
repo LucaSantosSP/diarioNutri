@@ -40,8 +40,6 @@ public class TabUsuarioController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
     public TabUsuarioObj save( @RequestBody @Valid TabUsuarioObj tabUsuarioObj){
-        Double imc = tabUsuarioObj.getVlPeso() / Math.pow(tabUsuarioObj.getVlAltura(), 2);
-        tabUsuarioObj.setVlImcAtual(imc);
         return tabUsuarioService.salvar(tabUsuarioObj);
     }
 
@@ -64,4 +62,6 @@ public class TabUsuarioController {
                     return tabUsuarioObjExistente;
                 }).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!") );
     }
+
+
 }

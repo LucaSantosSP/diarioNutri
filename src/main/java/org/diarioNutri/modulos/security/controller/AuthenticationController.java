@@ -6,6 +6,7 @@ import org.diarioNutri.dao.cadastros.usuario.dto.AuthenticationDTO;
 import org.diarioNutri.dao.cadastros.usuario.dto.LoginResponseDTO;
 import org.diarioNutri.dao.cadastros.usuario.dto.RegisterDTO;
 import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
+import org.diarioNutri.modulos.cadastros.usuario.service.TabUsuarioService;
 import org.diarioNutri.modulos.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,9 @@ public class AuthenticationController {
 
     @Autowired
     private TabUsuarioRepository tabUsuarioRepository;
+
+    @Autowired
+    private TabUsuarioService tabUsuarioService;
 
     @Autowired
     private TokenService tokenService;
@@ -47,6 +51,11 @@ public class AuthenticationController {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.txSenha());
         TabUsuarioObj usuario = new TabUsuarioObj(data.txUsuario(), data.txEmail(), encryptedPassword, data.vlAltura(), data.vlPeso());
+
+        Double imc = usuario.getVlPeso() / Math.pow(usuario.getVlAltura(), 2);
+        usuario.setVlImcAtual(imc);
+        usuario.setVlImcIdeal("18.5 a 24.9");
+        usuario.setVlPesoIdeal(tabUsuarioService.pesoIdeal(usuario.getVlAltura()));
 
         this.tabUsuarioRepository.save(usuario);
 
