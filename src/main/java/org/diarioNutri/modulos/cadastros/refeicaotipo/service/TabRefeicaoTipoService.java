@@ -2,6 +2,7 @@ package org.diarioNutri.modulos.cadastros.refeicaotipo.service;
 
 import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.refeicaotipo.repository.TabRefeicaoTipoRepository;
+import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,26 @@ public class TabRefeicaoTipoService {
     public Boolean excluir(TabRefeicaoTipoObj tabRefeicaoTipoObj){
         tabRefeicaoTipoRepository.delete(tabRefeicaoTipoObj);
         return true;
+    }
+
+    public void refeicoesPadrao(TabUsuarioObj tabUsuarioObj){
+        TabRefeicaoTipoObj tabCafeDaManhaObj = new TabRefeicaoTipoObj();
+        tabCafeDaManhaObj.setTxRefeicaoTipo("Café da manhã");
+        tabCafeDaManhaObj.setTabUsuarioObj(tabUsuarioObj);
+
+        tabRefeicaoTipoRepository.save(tabCafeDaManhaObj);
+
+        TabRefeicaoTipoObj tabAlmocoObj = new TabRefeicaoTipoObj();
+        tabAlmocoObj.setTxRefeicaoTipo("Almoço");
+        tabAlmocoObj.setTabUsuarioObj(tabUsuarioObj);
+
+        tabRefeicaoTipoRepository.save(tabAlmocoObj);
+
+        TabRefeicaoTipoObj tabJantaObj = new TabRefeicaoTipoObj();
+        tabJantaObj.setTxRefeicaoTipo("Janta");
+        tabJantaObj.setTabUsuarioObj(tabUsuarioObj);
+
+        tabRefeicaoTipoRepository.save(tabJantaObj);
+
     }
 }

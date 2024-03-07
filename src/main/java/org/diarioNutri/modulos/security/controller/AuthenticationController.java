@@ -6,6 +6,7 @@ import org.diarioNutri.dao.cadastros.usuario.dto.AuthenticationDTO;
 import org.diarioNutri.dao.cadastros.usuario.dto.LoginResponseDTO;
 import org.diarioNutri.dao.cadastros.usuario.dto.RegisterDTO;
 import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
+import org.diarioNutri.modulos.cadastros.refeicaotipo.service.TabRefeicaoTipoService;
 import org.diarioNutri.modulos.cadastros.usuario.service.TabUsuarioService;
 import org.diarioNutri.modulos.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("auth")
@@ -28,6 +31,9 @@ public class AuthenticationController {
 
     @Autowired
     private TabUsuarioService tabUsuarioService;
+
+    @Autowired
+    private TabRefeicaoTipoService tabRefeicaoTipoService;
 
     @Autowired
     private TokenService tokenService;
@@ -58,6 +64,14 @@ public class AuthenticationController {
         usuario.setVlPesoIdeal(tabUsuarioService.pesoIdeal(usuario.getVlAltura()));
 
         this.tabUsuarioRepository.save(usuario);
+
+        Optional<TabUsuarioObj> tabUsuarioObjOptional  = tabUsuarioService.encontrarUsuario(usuario.getCdUsuario());
+        if (tabUsuarioObjOptional.isPresent()) {
+            TabUsuarioObj tabUsuarioObj = tabUsuarioObjOptional.get();
+            tabRefeicaoTipoService.refeicoesPadrao(tabUsuarioObj);
+        } else {
+            System.out.println("Usuário não encontrado e refeições padrões não criadas!");
+        }
 
         return ResponseEntity.ok().build();
     }

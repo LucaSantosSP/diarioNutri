@@ -25,5 +25,8 @@ public class TabRefeicaoTipoObj {
     @NotEmpty(message = "Campo nome da refeição é obrigatório!")
     private String txRefeicaoTipo;
 
+    @ManyToOne
+    @JoinColumn(name = "cd_usuario")
+    private TabUsuarioObj tabUsuarioObj;
 
 }
