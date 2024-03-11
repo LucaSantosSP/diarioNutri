@@ -27,6 +27,10 @@ public class TabRefeicaoTipoService {
         return tabRefeicaoTipoRepository.findAll();
     }
 
+    public List<TabRefeicaoTipoObj> findByCdUsuario(Integer cdUsuario){
+        return tabRefeicaoTipoRepository.findByCdUsuario(cdUsuario);
+    }
+
     public Boolean excluir(TabRefeicaoTipoObj tabRefeicaoTipoObj){
         tabRefeicaoTipoRepository.delete(tabRefeicaoTipoObj);
         return true;

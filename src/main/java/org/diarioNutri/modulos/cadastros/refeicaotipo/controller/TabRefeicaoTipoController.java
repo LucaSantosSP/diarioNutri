@@ -42,6 +42,15 @@ public class TabRefeicaoTipoController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/pesquisaByUsuario/{cdUsuario}")
+    public ResponseEntity findByCdUsuario (@PathVariable Integer cdUsuario){
+        List<TabRefeicaoTipoObj> tabRefeicaoTipoObjList = tabRefeicaoTipoService.findByCdUsuario(cdUsuario);
+        if(!tabRefeicaoTipoObjList.isEmpty()){
+            return ResponseEntity.ok(tabRefeicaoTipoObjList);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/salvar/{cdRefeicaoTipo}")
     public void update(@PathVariable Integer cdRefeicaoTipo, @RequestBody @Valid TabRefeicaoTipoObj tabRefeicaoTipoObj){
