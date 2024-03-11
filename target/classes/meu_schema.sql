@@ -50,3 +50,6 @@ MODIFY COLUMN dt_refeicao date;
 ALTER TABLE tab_usuario
 MODIFY COLUMN vl_imc_ideal varchar(30),
 MODIFY COLUMN vl_peso_ideal varchar(30);
+
+ALTER TABLE tab_refeicao_tipo
+ADD COLUMN cd_usuario integer references tab_usuario (cd_usuario);
