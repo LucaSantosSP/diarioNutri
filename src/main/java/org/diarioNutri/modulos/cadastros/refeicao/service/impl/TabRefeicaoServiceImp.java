@@ -73,4 +73,45 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
         tabRefeicaoRepository.delete(tabRefeicaoObj);
         return true;
     }
+
+    @Override
+    public Boolean criarNovaRefeicao(TabUsuarioObj tabUsuarioObj){
+        LocalDate dtAtual = LocalDate.now();
+        List<TabRefeicaoObj> listTabRefeicaoObj = tabRefeicaoRepository.findByCdUsuario(tabUsuarioObj.getCdUsuario());
+        List<TabRefeicaoTipoObj> listTabRefeicaoTipoObj = tabRefeicaoTipoRepository.findByCdUsuario(tabUsuarioObj.getCdUsuario());
+
+        if (listTabRefeicaoObj.isEmpty()){
+            if (listTabRefeicaoTipoObj.isEmpty()) {
+                return false;
+            }else{
+                for (TabRefeicaoTipoObj tipo : listTabRefeicaoTipoObj){
+                    TabRefeicaoObj tabRefeicaoObj = new TabRefeicaoObj();
+                    tabRefeicaoObj.setDtRefeicao(dtAtual);
+                    tabRefeicaoObj.setTabRefeicaoTipoObj(tipo);
+                    tabRefeicaoObj.setTxRefeicao(tipo.getTxRefeicaoTipo());
+                    tabRefeicaoObj.setTabUsuarioObj(tabUsuarioObj);
+
+                    tabRefeicaoRepository.save(tabRefeicaoObj);
+                }
+            }
+        }else{
+            List<TabRefeicaoObj> refeicoesAtuais = tabRefeicaoRepository.findByCdUsuarioAndDtAtual(tabUsuarioObj.getCdUsuario());
+
+            if(refeicoesAtuais.isEmpty()){
+                for (TabRefeicaoTipoObj tipo : listTabRefeicaoTipoObj){
+                    TabRefeicaoObj tabRefeicaoObj = new TabRefeicaoObj();
+                    tabRefeicaoObj.setDtRefeicao(dtAtual);
+                    tabRefeicaoObj.setTabRefeicaoTipoObj(tipo);
+                    tabRefeicaoObj.setTxRefeicao(tipo.getTxRefeicaoTipo());
+                    tabRefeicaoObj.setTabUsuarioObj(tabUsuarioObj);
+
+                    tabRefeicaoRepository.save(tabRefeicaoObj);
+                }
+            }else {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

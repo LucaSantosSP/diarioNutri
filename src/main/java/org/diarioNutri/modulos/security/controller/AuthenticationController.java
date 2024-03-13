@@ -6,6 +6,7 @@ import org.diarioNutri.dao.cadastros.usuario.dto.AuthenticationDTO;
 import org.diarioNutri.dao.cadastros.usuario.dto.LoginResponseDTO;
 import org.diarioNutri.dao.cadastros.usuario.dto.RegisterDTO;
 import org.diarioNutri.dao.cadastros.usuario.repository.TabUsuarioRepository;
+import org.diarioNutri.modulos.cadastros.refeicao.service.TabRefeicaoService;
 import org.diarioNutri.modulos.cadastros.refeicaotipo.service.TabRefeicaoTipoService;
 import org.diarioNutri.modulos.cadastros.usuario.service.TabUsuarioService;
 import org.diarioNutri.modulos.security.TokenService;
@@ -36,6 +37,9 @@ public class AuthenticationController {
     private TabRefeicaoTipoService tabRefeicaoTipoService;
 
     @Autowired
+    private TabRefeicaoService tabRefeicaoService;
+
+    @Autowired
     private TokenService tokenService;
 
     @PostMapping("/login")
@@ -46,6 +50,8 @@ public class AuthenticationController {
         var token = tokenService.generateToken((TabUsuarioObj) auth.getPrincipal());
 
         TabUsuarioObj tabUsuarioObj = tabUsuarioRepository.encontrarPorEmail(data.txEmail());
+
+        tabRefeicaoService.criarNovaRefeicao(tabUsuarioObj);
 
         return ResponseEntity.ok(new LoginResponseDTO(token, tabUsuarioObj.getCdUsuario()));
     }

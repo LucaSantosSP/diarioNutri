@@ -2,6 +2,8 @@ package org.diarioNutri.modulos.cadastros.refeicao.service;
 
 import org.diarioNutri.dao.cadastros.refeicao.DTO.TabRefeicaoDTO;
 import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
+import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
+import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +19,6 @@ public interface TabRefeicaoService {
     TabRefeicaoObj salvar (TabRefeicaoObj tabRefeicaoObj);
 
     Boolean deletar (TabRefeicaoObj tabRefeicaoObj);
+
+    Boolean criarNovaRefeicao(TabUsuarioObj tabUsuarioObj);
 }
