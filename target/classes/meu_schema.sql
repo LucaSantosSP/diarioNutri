@@ -53,3 +53,6 @@ MODIFY COLUMN vl_peso_ideal varchar(30);
 
 ALTER TABLE tab_refeicao_tipo
 ADD COLUMN cd_usuario integer references tab_usuario (cd_usuario);
+
+ALTER TABLE tab_refeicao
+ADD COLUMN ck_menu integer;
