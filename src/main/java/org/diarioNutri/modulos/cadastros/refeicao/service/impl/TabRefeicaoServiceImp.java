@@ -114,4 +114,9 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
 
         return true;
     }
+
+    @Override
+    public List<TabRefeicaoObj> refeicaoDiaria(Integer cdUsuario) {
+        return tabRefeicaoRepository.findByCdUsuarioAndDtAtual(cdUsuario);
+    }
 }

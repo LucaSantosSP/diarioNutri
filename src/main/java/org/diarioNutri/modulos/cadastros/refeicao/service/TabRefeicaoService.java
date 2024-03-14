@@ -21,4 +21,6 @@ public interface TabRefeicaoService {
     Boolean deletar (TabRefeicaoObj tabRefeicaoObj);
 
     Boolean criarNovaRefeicao(TabUsuarioObj tabUsuarioObj);
+
+    List<TabRefeicaoObj> refeicaoDiaria (Integer cdUsuario);
 }

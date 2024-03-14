@@ -3,6 +3,7 @@ package org.diarioNutri.modulos.cadastros.refeicao.controller;
 import jakarta.validation.Valid;
 import org.diarioNutri.dao.cadastros.refeicao.DTO.TabRefeicaoDTO;
 import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
+import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.modulos.cadastros.refeicao.service.TabRefeicaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,14 @@ public class TabRefeicaoController {
     public void excluir (@PathVariable Integer cdRefeicao){
         tabRefeicaoService.encontrarPorCdRefeicao(cdRefeicao).map(tabRefeicaoObj -> tabRefeicaoService.deletar(tabRefeicaoObj))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Refeição não encontrada!"));
+    }
+
+    @GetMapping("/refeicaodia/{cdUsuario}")
+    public ResponseEntity refeicaoDia (@PathVariable Integer cdUsuario){
+        List<TabRefeicaoObj> tabRefeicaoObjList = tabRefeicaoService.refeicaoDiaria(cdUsuario);
+        if(!tabRefeicaoObjList.isEmpty()){
+            return ResponseEntity.ok(tabRefeicaoObjList);
+        }
+        return ResponseEntity.notFound().build();
     }
 }
