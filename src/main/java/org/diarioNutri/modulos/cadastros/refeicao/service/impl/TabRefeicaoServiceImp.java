@@ -90,6 +90,7 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
                     tabRefeicaoObj.setTabRefeicaoTipoObj(tipo);
                     tabRefeicaoObj.setTxRefeicao(tipo.getTxRefeicaoTipo());
                     tabRefeicaoObj.setTabUsuarioObj(tabUsuarioObj);
+                    tabRefeicaoObj.setTxIcon(tipo.getTxIcon());
 
                     tabRefeicaoRepository.save(tabRefeicaoObj);
                 }
@@ -104,6 +105,7 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
                     tabRefeicaoObj.setTabRefeicaoTipoObj(tipo);
                     tabRefeicaoObj.setTxRefeicao(tipo.getTxRefeicaoTipo());
                     tabRefeicaoObj.setTabUsuarioObj(tabUsuarioObj);
+                    tabRefeicaoObj.setTxIcon(tipo.getTxIcon());
 
                     tabRefeicaoRepository.save(tabRefeicaoObj);
                 }

@@ -56,3 +56,6 @@ ADD COLUMN cd_usuario integer references tab_usuario (cd_usuario);
 
 ALTER TABLE tab_refeicao
 ADD COLUMN tx_icon varchar(30);
+
+ALTER TABLE tab_refeicao_tipo
+ADD COLUMN tx_icon varchar(30);

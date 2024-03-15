@@ -29,4 +29,6 @@ public class TabRefeicaoTipoObj {
     @JoinColumn(name = "cd_usuario")
     private TabUsuarioObj tabUsuarioObj;
 
+    @Column(name = "tx_icon")
+    private String txIcon;
 }

@@ -40,18 +40,21 @@ public class TabRefeicaoTipoService {
         TabRefeicaoTipoObj tabCafeDaManhaObj = new TabRefeicaoTipoObj();
         tabCafeDaManhaObj.setTxRefeicaoTipo("Café da manhã");
         tabCafeDaManhaObj.setTabUsuarioObj(tabUsuarioObj);
+        tabCafeDaManhaObj.setTxIcon("coffee");
 
         tabRefeicaoTipoRepository.save(tabCafeDaManhaObj);
 
         TabRefeicaoTipoObj tabAlmocoObj = new TabRefeicaoTipoObj();
         tabAlmocoObj.setTxRefeicaoTipo("Almoço");
         tabAlmocoObj.setTabUsuarioObj(tabUsuarioObj);
+        tabAlmocoObj.setTxIcon("food-drumstick");
 
         tabRefeicaoTipoRepository.save(tabAlmocoObj);
 
         TabRefeicaoTipoObj tabJantaObj = new TabRefeicaoTipoObj();
         tabJantaObj.setTxRefeicaoTipo("Janta");
         tabJantaObj.setTabUsuarioObj(tabUsuarioObj);
+        tabJantaObj.setTxIcon("food-turkey");
 
         tabRefeicaoTipoRepository.save(tabJantaObj);
 
