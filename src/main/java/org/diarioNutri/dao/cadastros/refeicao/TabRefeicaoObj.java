@@ -32,4 +32,7 @@ public class TabRefeicaoObj {
     @ManyToOne
     @JoinColumn(name = "cd_refeicao_tipo")
     private TabRefeicaoTipoObj tabRefeicaoTipoObj;
+
+    @Column(name = "tx_icon")
+    private String txIcon;
 }
