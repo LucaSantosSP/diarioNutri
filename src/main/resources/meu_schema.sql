@@ -59,3 +59,9 @@ ADD COLUMN tx_icon varchar(30);
 
 ALTER TABLE tab_refeicao_tipo
 ADD COLUMN tx_icon varchar(30);
+
+ALTER TABLE tab_refeicao
+    ADD COLUMN dt_hora_refeicao time(0);
+
+ALTER TABLE tab_refeicao_tipo
+    ADD COLUMN dt_hora_refeicao_tipo time(0);
