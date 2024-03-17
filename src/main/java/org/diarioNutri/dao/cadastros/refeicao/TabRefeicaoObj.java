@@ -7,6 +7,7 @@ import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -35,4 +36,7 @@ public class TabRefeicaoObj {
 
     @Column(name = "tx_icon")
     private String txIcon;
+
+    @Column(name = "dt_hora_refeicao")
+    private LocalTime dtHoraRefeicao;
 }
