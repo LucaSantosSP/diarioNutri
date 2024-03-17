@@ -10,6 +10,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 @Entity
@@ -31,4 +33,7 @@ public class TabRefeicaoTipoObj {
 
     @Column(name = "tx_icon")
     private String txIcon;
+
+    @Column(name = "dt_hora_refeicao_tipo")
+    private LocalTime dtHoraRefeicaoTipo;
 }
