@@ -59,3 +59,75 @@ ADD COLUMN tx_icon varchar(30);
 
 ALTER TABLE tab_refeicao_tipo
 ADD COLUMN tx_icon varchar(30);
+
+ALTER TABLE tab_refeicao
+    ADD COLUMN dt_hora_refeicao time(0);
+
+ALTER TABLE tab_refeicao_tipo
+    ADD COLUMN dt_hora_refeicao_tipo time(0);
+
+DELIMITER //
+CREATE TRIGGER set_valor_padrao_dt_hora_refeicao_tipo
+    BEFORE INSERT ON tab_refeicao_tipo
+    FOR EACH ROW
+BEGIN
+    IF NEW.tx_refeicao_tipo = 'Café da Manhã' THEN
+        SET NEW.dt_hora_refeicao_tipo = '08:00:00';
+    ELSEIF NEW.tx_refeicao_tipo = 'Almoço' THEN
+        SET NEW.dt_hora_refeicao_tipo = '12:00:00';
+    ELSEIF NEW.tx_refeicao_tipo = 'Janta' THEN
+        SET NEW.dt_hora_refeicao_tipo = '18:00:00';
+END IF;
+END //
+DELIMITER ;
+
+UPDATE tab_refeicao_tipo
+SET dt_hora_refeicao_tipo = CASE
+                                WHEN tx_refeicao_tipo = 'Café da Manhã' THEN '08:00:00'
+                                WHEN tx_refeicao_tipo = 'Almoço' THEN '12:00:00'
+                                WHEN tx_refeicao_tipo = 'Janta' THEN '18:00:00'
+    END;
+
+DELIMITER //
+CREATE TRIGGER incrementar_cd_refeicao_tipo
+    BEFORE INSERT ON tab_refeicao_tipo
+    FOR EACH ROW
+BEGIN
+    DECLARE proximo_cd_refeicao_tipo INT;
+    SET proximo_cd_refeicao_tipo = COALESCE((SELECT MAX(cd_refeicao_tipo) FROM tab_refeicao_tipo), 0) + 1;
+    SET NEW.cd_refeicao_tipo = proximo_cd_refeicao_tipo;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER set_valor_padrao_dt_hora_refeicao
+    BEFORE INSERT ON tab_refeicao
+    FOR EACH ROW
+BEGIN
+    IF NEW.tx_refeicao = 'Café da Manhã' THEN
+        SET NEW.dt_hora_refeicao = '08:00:00';
+    ELSEIF NEW.tx_refeicao = 'Almoço' THEN
+        SET NEW.dt_hora_refeicao = '12:00:00';
+    ELSEIF NEW.tx_refeicao = 'Janta' THEN
+        SET NEW.dt_hora_refeicao = '18:00:00';
+END IF;
+END //
+DELIMITER ;
+
+UPDATE tab_refeicao
+SET dt_hora_refeicao = CASE
+                           WHEN tx_refeicao = 'Café da Manhã' THEN '08:00:00'
+                           WHEN tx_refeicao = 'Almoço' THEN '12:00:00'
+                           WHEN tx_refeicao = 'Janta' THEN '18:00:00'
+    END;
+
+DELIMITER //
+CREATE TRIGGER incrementar_cd_refeicao
+    BEFORE INSERT ON tab_refeicao
+    FOR EACH ROW
+BEGIN
+    DECLARE proximo_cd_refeicao INT;
+    SET proximo_cd_refeicao = COALESCE((SELECT MAX(cd_refeicao) FROM tab_refeicao), 0) + 1;
+    SET NEW.cd_refeicao = proximo_cd_refeicao;
+END //
+DELIMITER ;
