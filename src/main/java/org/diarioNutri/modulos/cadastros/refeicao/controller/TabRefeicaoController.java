@@ -1,11 +1,15 @@
 package org.diarioNutri.modulos.cadastros.refeicao.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.Validator;
 import org.diarioNutri.dao.cadastros.refeicao.DTO.TabRefeicaoDTO;
+import org.diarioNutri.dao.cadastros.refeicao.TabMacronutrienteObj;
 import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
+import org.diarioNutri.dao.cadastros.refeicaoalimento.TabRefeicaoAlimentoObj;
 import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.modulos.cadastros.refeicao.service.TabRefeicaoService;
+import org.diarioNutri.modulos.cadastros.refeicaoalimento.TabRefeicaoAlimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,9 @@ public class TabRefeicaoController {
 
     @Autowired
     private TabRefeicaoService tabRefeicaoService;
+
+    @Autowired
+    private TabRefeicaoAlimentoService tabRefeicaoAlimentoService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
@@ -67,5 +74,41 @@ public class TabRefeicaoController {
             return ResponseEntity.ok(tabRefeicaoObjList);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/refeicaoalimento/{cdUsuario}/{cdRefeicao}")
+    public ResponseEntity refeicaoAlimento (@PathVariable Integer cdUsuario, @PathVariable Integer cdRefeicao){
+        List<TabRefeicaoAlimentoObj> tabRefeicaoAlimentoObjList = tabRefeicaoAlimentoService.findRefeicaoAlimento(cdUsuario, cdRefeicao);
+        if(!tabRefeicaoAlimentoObjList.isEmpty()){
+            return ResponseEntity.ok(tabRefeicaoAlimentoObjList);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/macronutrientes/{cdUsuario}")
+    public ResponseEntity macronutrientes (@PathVariable Integer cdUsuario){
+        List<TabRefeicaoAlimentoObj> tabRefeicaoAlimentoObjList = tabRefeicaoAlimentoService.findByCdUsuarioAndDay(cdUsuario);
+        TabMacronutrienteObj tabMacronutrienteObj = new TabMacronutrienteObj();
+
+        Double txProteinaTotal = 0.0;
+        Double txCarboidratoTotal = 0.0;
+        Double txGorduraTotal = 0.0;
+        Integer txKcalTotal = 0;
+        Double txAguaTotal = 0.0;
+
+        for (TabRefeicaoAlimentoObj tabRefeicaoAlimentoObj : tabRefeicaoAlimentoObjList){
+            txProteinaTotal = txProteinaTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlProteina();
+            txCarboidratoTotal = txCarboidratoTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlCarboidrato();
+            txGorduraTotal = txGorduraTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlGordura();
+            txKcalTotal = txKcalTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlKcal();
+        }
+
+        tabMacronutrienteObj.setTxProteina(txProteinaTotal.toString());
+        tabMacronutrienteObj.setTxCarboidrato(txCarboidratoTotal.toString());
+        tabMacronutrienteObj.setTxGordura(txGorduraTotal.toString());
+        tabMacronutrienteObj.setTxKcal(txKcalTotal.toString());
+        tabMacronutrienteObj.setTxAgua(txAguaTotal.toString());
+
+        return ResponseEntity.ok(tabMacronutrienteObj);
     }
 }

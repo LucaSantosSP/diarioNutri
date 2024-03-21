@@ -83,10 +83,10 @@ DELIMITER ;
 
 UPDATE tab_refeicao_tipo
 SET dt_hora_refeicao_tipo = CASE
-                                WHEN tx_refeicao_tipo = 'Café da Manhã' THEN '08:00:00'
-                                WHEN tx_refeicao_tipo = 'Almoço' THEN '12:00:00'
-                                WHEN tx_refeicao_tipo = 'Janta' THEN '18:00:00'
-    END;
+    WHEN tx_refeicao_tipo = 'Café da Manhã' THEN '08:00:00'
+    WHEN tx_refeicao_tipo = 'Almoço' THEN '12:00:00'
+    WHEN tx_refeicao_tipo = 'Janta' THEN '18:00:00'
+END;
 
 DELIMITER //
 CREATE TRIGGER incrementar_cd_refeicao_tipo
