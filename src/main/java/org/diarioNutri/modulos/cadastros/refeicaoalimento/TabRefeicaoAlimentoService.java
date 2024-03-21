@@ -42,4 +42,8 @@ public class TabRefeicaoAlimentoService {
         return tabRefeicaoAlimentoRepository.findRefeicaoAlimentoByUsuario(cdUsuario, cdRefeicao);
     }
 
+    public List<TabRefeicaoAlimentoObj> findByCdUsuarioAndDay(Integer cdUsuario){
+        return tabRefeicaoAlimentoRepository.findByCdUsuarioAndDay(cdUsuario);
+    }
+
 }

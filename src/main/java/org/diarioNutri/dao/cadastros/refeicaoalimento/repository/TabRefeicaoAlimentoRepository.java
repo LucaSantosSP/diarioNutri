@@ -17,4 +17,7 @@ public interface TabRefeicaoAlimentoRepository extends JpaRepository<TabRefeicao
 
     @Query("select t from TabRefeicaoAlimentoObj t where t.tabUsuarioObj.cdUsuario = ?1 and t.tabRefeicaoObj.cdRefeicao = ?2")
     List<TabRefeicaoAlimentoObj> findRefeicaoAlimentoByUsuario(Integer cdUsuario, Integer cdRefeicao);
+
+    @Query("select t from TabRefeicaoAlimentoObj t where t.tabUsuarioObj.cdUsuario = ?1 and t.tabRefeicaoObj.dtRefeicao = CURRENT_DATE()")
+    List<TabRefeicaoAlimentoObj> findByCdUsuarioAndDay(Integer cdUsuario);
 }
