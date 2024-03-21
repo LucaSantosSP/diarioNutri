@@ -3,9 +3,11 @@ package org.diarioNutri.modulos.cadastros.refeicao.controller;
 import jakarta.validation.Valid;
 import org.diarioNutri.dao.cadastros.refeicao.DTO.TabRefeicaoDTO;
 import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
+import org.diarioNutri.dao.cadastros.refeicaoalimento.TabRefeicaoAlimentoObj;
 import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.modulos.cadastros.refeicao.service.TabRefeicaoService;
+import org.diarioNutri.modulos.cadastros.refeicaoalimento.TabRefeicaoAlimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class TabRefeicaoController {
 
     @Autowired
     private TabRefeicaoService tabRefeicaoService;
+
+    @Autowired
+    private TabRefeicaoAlimentoService tabRefeicaoAlimentoService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
@@ -65,6 +70,15 @@ public class TabRefeicaoController {
         List<TabRefeicaoObj> tabRefeicaoObjList = tabRefeicaoService.refeicaoDiaria(cdUsuario);
         if(!tabRefeicaoObjList.isEmpty()){
             return ResponseEntity.ok(tabRefeicaoObjList);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/refeicaoalimento/{cdUsuario}/{cdRefeicao}")
+    public ResponseEntity refeicaoAlimento (@PathVariable Integer cdUsuario, @PathVariable Integer cdRefeicao){
+        List<TabRefeicaoAlimentoObj> tabRefeicaoAlimentoObjList = tabRefeicaoAlimentoService.findRefeicaoAlimento(cdUsuario, cdRefeicao);
+        if(!tabRefeicaoAlimentoObjList.isEmpty()){
+            return ResponseEntity.ok(tabRefeicaoAlimentoObjList);
         }
         return ResponseEntity.notFound().build();
     }
