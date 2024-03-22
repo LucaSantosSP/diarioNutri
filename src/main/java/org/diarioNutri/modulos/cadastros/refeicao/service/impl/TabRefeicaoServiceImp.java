@@ -37,9 +37,11 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
                 tabRefeicaoDTO.getCdRefeicaoTipo() != null ? tabRefeicaoTipoRepository.findByCdRefeicaoTipo(tabRefeicaoDTO.getCdRefeicaoTipo()) : null;
 
         tabRefeicaoObj.setTabUsuarioObj(tabUsuarioObj);
-        tabRefeicaoObj.setTxRefeicao(tabRefeicaoTipoObj != null ? tabRefeicaoObj.getTxRefeicao() : tabRefeicaoDTO.getTxRefeicao());
+        tabRefeicaoObj.setTxRefeicao(tabRefeicaoDTO.getTxRefeicao() != null ? tabRefeicaoDTO.getTxRefeicao() : null);
         tabRefeicaoObj.setDtRefeicao(LocalDate.now());
         tabRefeicaoObj.setTabRefeicaoTipoObj(tabRefeicaoTipoObj);
+        tabRefeicaoObj.setTxIcon(tabRefeicaoDTO.getTxIcon() != null ? tabRefeicaoDTO.getTxIcon() : null);
+        tabRefeicaoObj.setDtHoraRefeicao(tabRefeicaoDTO.getDtHoraRefeicao() != null ? tabRefeicaoDTO.getDtHoraRefeicao() : null);
         tabRefeicaoObj = tabRefeicaoRepository.save(tabRefeicaoObj);
         return tabRefeicaoObj;
     }

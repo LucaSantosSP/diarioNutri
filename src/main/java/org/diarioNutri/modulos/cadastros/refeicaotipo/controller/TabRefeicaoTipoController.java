@@ -1,16 +1,23 @@
 package org.diarioNutri.modulos.cadastros.refeicaotipo.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.Validator;
+import org.diarioNutri.dao.cadastros.refeicao.DTO.TabRefeicaoDTO;
 import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
+import org.diarioNutri.modulos.cadastros.refeicao.service.TabRefeicaoService;
 import org.diarioNutri.modulos.cadastros.refeicaotipo.service.TabRefeicaoTipoService;
+import org.diarioNutri.modulos.cadastros.usuario.service.TabUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +28,46 @@ public class TabRefeicaoTipoController {
     @Autowired
     private TabRefeicaoTipoService tabRefeicaoTipoService;
 
+    @Autowired
+    private TabRefeicaoService tabRefeicaoService;
+
+    @Autowired
+    private TabUsuarioService tabUsuarioService;
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
     public TabRefeicaoTipoObj save (@RequestBody @Valid TabRefeicaoTipoObj tabRefeicaoTipoObj){
-        return tabRefeicaoTipoService.gravar(tabRefeicaoTipoObj);
+        LocalTime hrSeisManha = LocalTime.of(6, 0); // 06:00
+        LocalTime hrMeioDia = LocalTime.NOON; // Meio-dia
+        LocalTime hrSeteNoite = LocalTime.of(19, 0); // 06:00
+        LocalTime hrOnzeNoite = LocalTime.of(23, 59); // 06:00
+
+        if (tabRefeicaoTipoObj.getTxIcon() == null) {
+            tabRefeicaoTipoObj.setTxIcon("baguette");
+            if (tabRefeicaoTipoObj.getDtHoraRefeicaoTipo().isAfter(hrSeisManha) && tabRefeicaoTipoObj.getDtHoraRefeicaoTipo().isBefore(hrMeioDia)) {
+                tabRefeicaoTipoObj.setTxIcon("food-apple");
+            }
+            if (tabRefeicaoTipoObj.getDtHoraRefeicaoTipo().isAfter(hrMeioDia) && tabRefeicaoTipoObj.getDtHoraRefeicaoTipo().isBefore(hrSeteNoite)) {
+                tabRefeicaoTipoObj.setTxIcon("food-croissant");
+            }
+            if (tabRefeicaoTipoObj.getDtHoraRefeicaoTipo().isAfter(hrSeteNoite) && tabRefeicaoTipoObj.getDtHoraRefeicaoTipo().isBefore(hrOnzeNoite)) {
+                tabRefeicaoTipoObj.setTxIcon("pizza");
+            }
+        }
+
+        TabRefeicaoTipoObj newTabRefeicaoTipoObj = tabRefeicaoTipoService.gravar(tabRefeicaoTipoObj);
+
+        TabRefeicaoDTO tabRefeicaoDTO = new TabRefeicaoDTO();
+        tabRefeicaoDTO.setTxRefeicao(newTabRefeicaoTipoObj.getTxRefeicaoTipo());
+        tabRefeicaoDTO.setCdUsuario(newTabRefeicaoTipoObj.getTabUsuarioObj().getCdUsuario());
+        tabRefeicaoDTO.setDtRefeicao(LocalDate.now());
+        tabRefeicaoDTO.setCdRefeicaoTipo(newTabRefeicaoTipoObj.getCdRefeicaoTipo());
+        tabRefeicaoDTO.setTxIcon(newTabRefeicaoTipoObj.getTxIcon());
+        tabRefeicaoDTO.setDtHoraRefeicao(newTabRefeicaoTipoObj.getDtHoraRefeicaoTipo());
+
+        tabRefeicaoService.gravar(tabRefeicaoDTO);
+
+        return newTabRefeicaoTipoObj;
     }
 
     @GetMapping("/{cdRefeicaoTipo}")
