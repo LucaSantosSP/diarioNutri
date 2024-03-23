@@ -116,10 +116,10 @@ DELIMITER ;
 
 UPDATE tab_refeicao
 SET dt_hora_refeicao = CASE
-                           WHEN tx_refeicao = 'Café da Manhã' THEN '08:00:00'
-                           WHEN tx_refeicao = 'Almoço' THEN '12:00:00'
-                           WHEN tx_refeicao = 'Janta' THEN '18:00:00'
-    END;
+   WHEN tx_refeicao = 'Café da Manhã' THEN '08:00:00'
+   WHEN tx_refeicao = 'Almoço' THEN '12:00:00'
+   WHEN tx_refeicao = 'Janta' THEN '18:00:00'
+END;
 
 DELIMITER //
 CREATE TRIGGER incrementar_cd_refeicao
@@ -131,3 +131,6 @@ BEGIN
     SET NEW.cd_refeicao = proximo_cd_refeicao;
 END //
 DELIMITER ;
+
+ALTER TABLE tab_alimento
+ADD COLUMN vl_ml_agua varchar(10);

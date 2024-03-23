@@ -36,4 +36,8 @@ public class TabAlimentoObj {
     @Column(name = "vl_gordura", length = 11, precision = 2)
     @NotNull(message = "Campo gordura é obrigatório!")
     private double vlGordura;
+
+    @Column(name = "vl_ml_agua")
+    @NotNull(message = "Campo ml água é obrigatório!")
+    private String vlMlAgua;
 }

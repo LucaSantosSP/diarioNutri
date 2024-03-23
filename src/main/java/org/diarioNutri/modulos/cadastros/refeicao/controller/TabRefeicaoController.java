@@ -111,4 +111,31 @@ public class TabRefeicaoController {
 
         return ResponseEntity.ok(tabMacronutrienteObj);
     }
+
+    @GetMapping("/nutrientesAlimento/{cdUsuario}/{cdRefeicao}")
+    public ResponseEntity nutrientesAlimento (@PathVariable Integer cdUsuario, @PathVariable Integer cdRefeicao){
+        List<TabRefeicaoAlimentoObj> tabRefeicaoAlimentoObjList = tabRefeicaoAlimentoService.findRefeicaoAlimento(cdUsuario, cdRefeicao);
+        TabMacronutrienteObj tabMacronutrienteObj = new TabMacronutrienteObj();
+
+        Double txProteinaTotal = 0.0;
+        Double txCarboidratoTotal = 0.0;
+        Double txGorduraTotal = 0.0;
+        Integer txKcalTotal = 0;
+        Double txAguaTotal = 0.0;
+
+        for (TabRefeicaoAlimentoObj tabRefeicaoAlimentoObj : tabRefeicaoAlimentoObjList){
+            txProteinaTotal = txProteinaTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlProteina();
+            txCarboidratoTotal = txCarboidratoTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlCarboidrato();
+            txGorduraTotal = txGorduraTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlGordura();
+            txKcalTotal = txKcalTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlKcal();
+        }
+
+        tabMacronutrienteObj.setTxProteina(txProteinaTotal.toString());
+        tabMacronutrienteObj.setTxCarboidrato(txCarboidratoTotal.toString());
+        tabMacronutrienteObj.setTxGordura(txGorduraTotal.toString());
+        tabMacronutrienteObj.setTxKcal(txKcalTotal.toString());
+        tabMacronutrienteObj.setTxAgua(txAguaTotal.toString());
+
+        return ResponseEntity.ok(tabMacronutrienteObj);
+    }
 }

@@ -9,6 +9,7 @@ import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import java.time.LocalDate;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +22,6 @@ public class TabRefeicaoDTO {
     private Integer cdRefeicaoTipo;
     private String txRefeicao;
     private LocalDate dtRefeicao;
+    private String txIcon;
+    private LocalTime dtHoraRefeicao;
 }
