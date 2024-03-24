@@ -45,4 +45,5 @@ public class TabAlimentoObj {
     @ManyToOne
     @JoinColumn(name = "cd_usuario")
     private TabUsuarioObj tabUsuarioObj;
+
 }
