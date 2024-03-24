@@ -134,3 +134,11 @@ DELIMITER ;
 
 ALTER TABLE tab_alimento
 ADD COLUMN vl_ml_agua varchar(10);
+
+ALTER TABLE tab_alimento
+ADD COLUMN cd_usuario integer references tab_usuario (cd_usuario);
+
+ALTER TABLE tab_alimento
+    modify column vl_proteina varchar(20),
+    modify column vl_carboidrato varchar(20),
+    modify column vl_gordura varchar(20);

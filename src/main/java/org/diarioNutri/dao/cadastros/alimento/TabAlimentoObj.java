@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 
 @Getter
 @Setter
@@ -40,4 +41,8 @@ public class TabAlimentoObj {
     @Column(name = "vl_ml_agua")
     @NotNull(message = "Campo ml água é obrigatório!")
     private String vlMlAgua;
+
+    @ManyToOne
+    @JoinColumn(name = "cd_usuario")
+    private TabUsuarioObj tabUsuarioObj;
 }
