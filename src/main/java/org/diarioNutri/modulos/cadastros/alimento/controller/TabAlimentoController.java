@@ -42,9 +42,18 @@ public class TabAlimentoController {
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Alimento não encontrado!"));
     }
 
-    @GetMapping("/pesquisa")
-    public ResponseEntity encontraTodos (){
-        List<TabAlimentoObj> tabAlimentoObjList = tabAlimentoService.encontrarTodos();
+    @GetMapping("/pesquisa/{cdUsuario}")
+    public ResponseEntity encontraTodos (@PathVariable Integer cdUsuario){
+        List<TabAlimentoObj> tabAlimentoObjList = tabAlimentoService.encontrarTodos(cdUsuario);
+        if(!tabAlimentoObjList.isEmpty()){
+            return ResponseEntity.ok(tabAlimentoObjList);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/pesquisabypesquisa/{cdUsuario}/{txAlimento}")
+    public ResponseEntity encontraTodos (@PathVariable Integer cdUsuario, @PathVariable String txAlimento){
+        List<TabAlimentoObj> tabAlimentoObjList = tabAlimentoService.encontrarTodosByPesquisa(cdUsuario, txAlimento);
         if(!tabAlimentoObjList.isEmpty()){
             return ResponseEntity.ok(tabAlimentoObjList);
         }

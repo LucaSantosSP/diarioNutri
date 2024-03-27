@@ -16,7 +16,11 @@ public interface TabAlimentoRepository extends JpaRepository<TabAlimentoObj, Int
     @Query("select t from TabAlimentoObj t where t.tabUsuarioObj.cdUsuario = ?1")
     List<TabAlimentoObj> findByCdUsuario(Integer cdUsuario );
 
-    @Query("select t from TabAlimentoObj t order by t.txAliemnto asc")
-    List<TabAlimentoObj> findAllDesc();
+    @Query("select t from TabAlimentoObj t where t.tabUsuarioObj.cdUsuario = ?1 or t.tabUsuarioObj.cdUsuario is null order by t.txAliemnto asc")
+    List<TabAlimentoObj> findAllDesc(Integer cdUsuario);
+
+    @Query("select t from TabAlimentoObj t where (t.tabUsuarioObj.cdUsuario = ?1 or t.tabUsuarioObj.cdUsuario is null) " +
+            "and t.txAliemnto like %?2% order by t.txAliemnto asc")
+    List<TabAlimentoObj> findByCdUsuarioByPesquisa(Integer cdUsuario, String txAlimento);
 
 }
