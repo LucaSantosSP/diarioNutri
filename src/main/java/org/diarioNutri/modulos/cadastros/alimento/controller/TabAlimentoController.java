@@ -18,7 +18,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/refeicaotipo")
+@RequestMapping("/alimento")
 public class TabAlimentoController {
 
     @Autowired
