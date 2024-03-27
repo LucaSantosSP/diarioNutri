@@ -26,7 +26,7 @@ public class TabAlimentoService {
     }
 
     public List<TabAlimentoObj> encontrarTodos(){
-        return tabAlimentoRepository.findAll();
+        return tabAlimentoRepository.findAllDesc();
     }
 
     public List<TabAlimentoObj> findByCdUsuario(Integer cdUsuario){
