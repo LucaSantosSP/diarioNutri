@@ -22,6 +22,10 @@ public class TabAlimentoObj {
     @NotEmpty(message = "Campo nome do alimento é obrigatório!")
     private String txAliemnto;
 
+    @Column(name = "tx_grupo")
+    @NotEmpty(message = "Campo nome do alimento é obrigatório!")
+    private String txGrupo;
+
     @Column(name = "vl_kcal", length = 3)
     @NotNull(message = "Campo caloria é obrigatório!")
     private Integer vlKcal;
