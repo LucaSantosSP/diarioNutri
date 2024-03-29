@@ -28,19 +28,19 @@ public class TabAlimentoObj {
 
     @Column(name = "vl_proteina", length = 11, precision = 2)
     @NotNull(message = "Campo proteina é obrigatório!")
-    private double vlProteina;
+    private String vlProteina;
 
     @Column(name = "vl_carboidrato", length = 11, precision = 2)
     @NotNull(message = "Campo carboidrato é obrigatório!")
-    private double vlCarboidrato;
+    private String vlCarboidrato;
 
     @Column(name = "vl_gordura", length = 11, precision = 2)
     @NotNull(message = "Campo gordura é obrigatório!")
-    private double vlGordura;
+    private String vlGordura;
 
-    @Column(name = "vl_ml_agua")
+    @Column(name = "vl_umidade")
     @NotNull(message = "Campo ml água é obrigatório!")
-    private String vlMlAgua;
+    private String vlUmidade;
 
     @ManyToOne
     @JoinColumn(name = "cd_usuario")

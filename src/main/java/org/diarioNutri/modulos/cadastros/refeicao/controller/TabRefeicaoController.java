@@ -97,9 +97,9 @@ public class TabRefeicaoController {
         Double txAguaTotal = 0.0;
 
         for (TabRefeicaoAlimentoObj tabRefeicaoAlimentoObj : tabRefeicaoAlimentoObjList){
-            txProteinaTotal = txProteinaTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlProteina();
-            txCarboidratoTotal = txCarboidratoTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlCarboidrato();
-            txGorduraTotal = txGorduraTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlGordura();
+            txProteinaTotal = txProteinaTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlProteina());
+            txCarboidratoTotal = txCarboidratoTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlCarboidrato());
+            txGorduraTotal = txGorduraTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlGordura());
             txKcalTotal = txKcalTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlKcal();
         }
 
@@ -124,9 +124,9 @@ public class TabRefeicaoController {
         Double txAguaTotal = 0.0;
 
         for (TabRefeicaoAlimentoObj tabRefeicaoAlimentoObj : tabRefeicaoAlimentoObjList){
-            txProteinaTotal = txProteinaTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlProteina();
-            txCarboidratoTotal = txCarboidratoTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlCarboidrato();
-            txGorduraTotal = txGorduraTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlGordura();
+            txProteinaTotal = txProteinaTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlProteina());
+            txCarboidratoTotal = txCarboidratoTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlCarboidrato());
+            txGorduraTotal = txGorduraTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlGordura());
             txKcalTotal = txKcalTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlKcal();
         }
 
