@@ -134,3 +134,40 @@ DELIMITER ;
 
 ALTER TABLE tab_alimento
 ADD COLUMN vl_ml_agua varchar(10);
+
+ALTER TABLE tab_alimento
+    ADD COLUMN cd_usuario integer references tab_usuario (cd_usuario);
+
+ALTER TABLE tab_alimento
+    modify column vl_proteina varchar(20),
+    modify column vl_carboidrato varchar(20),
+    modify column vl_gordura varchar(20);
+
+ALTER TABLE tab_alimento
+CHANGE tx_alimento tx_alimento varchar(100),
+CHANGE vl_ml_agua vl_umidade varchar(10);
+
+ALTER TABLE tab_alimento
+ADD COLUMN tx_grupo varchar(100),
+ADD COLUMN vl_kj varchar(10),
+ADD COLUMN vl_lipideos varchar(10),
+ADD COLUMN vl_colesterol varchar(10),
+ADD COLUMN vl_fibra_alimentar varchar(10),
+ADD COLUMN vl_cinzas varchar(10),
+ADD COLUMN vl_calcio varchar(10),
+ADD COLUMN vl_magnesio varchar(10),
+ADD COLUMN vl_manganes varchar(10),
+ADD COLUMN vl_fosforo varchar(10),
+ADD COLUMN vl_ferro varchar(10),
+ADD COLUMN vl_sodio varchar(10),
+ADD COLUMN vl_potassio varchar(10),
+ADD COLUMN vl_cobre varchar(10),
+ADD COLUMN vl_zinco varchar(10),
+ADD COLUMN vl_retinol varchar(10),
+ADD COLUMN vl_re varchar(10),
+ADD COLUMN vl_rae varchar(10),
+ADD COLUMN vl_tiamina varchar(10),
+ADD COLUMN vl_riboflavina varchar(10),
+ADD COLUMN vl_piridoxina varchar(10),
+ADD COLUMN vl_niacina varchar(10),
+ADD COLUMN vl_vitamina_c varchar(10);
