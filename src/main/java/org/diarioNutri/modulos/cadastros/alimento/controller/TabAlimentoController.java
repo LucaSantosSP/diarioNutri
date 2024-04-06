@@ -93,8 +93,7 @@ public class TabAlimentoController {
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/adicionaralimento/{cdAlimento}/{cdRefeicao}")
+    @GetMapping("/adicionaralimento/{cdAlimento}/{cdRefeicao}")
     public void adicionaralimento(@PathVariable Integer cdAlimento, @PathVariable Integer cdRefeicao) {
         Optional<TabRefeicaoObj> tabRefeicaoObjOptional = tabRefeicaoService.encontrarPorCdRefeicao(cdRefeicao);
         Optional<TabAlimentoObj> tabAlimentoObjOptional = tabAlimentoService.encontrarPorCdAlimento(cdAlimento);
