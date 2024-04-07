@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 @RestController
@@ -111,11 +112,13 @@ public class TabRefeicaoController {
             }
         }
 
-        tabMacronutrienteObj.setTxProteina(txProteinaTotal.toString());
-        tabMacronutrienteObj.setTxCarboidrato(txCarboidratoTotal.toString());
-        tabMacronutrienteObj.setTxGordura(txGorduraTotal.toString());
+        DecimalFormat df = new DecimalFormat("#.##");
+        tabMacronutrienteObj.setTxProteina(df.format(txProteinaTotal));
+        tabMacronutrienteObj.setTxCarboidrato(df.format(txCarboidratoTotal));
+        tabMacronutrienteObj.setTxGordura(df.format(txGorduraTotal));
+        tabMacronutrienteObj.setTxAgua(df.format(txAguaTotal));
+
         tabMacronutrienteObj.setTxKcal(txKcalTotal.toString());
-        tabMacronutrienteObj.setTxAgua(txAguaTotal.toString());
 
         return ResponseEntity.ok(tabMacronutrienteObj);
     }
@@ -146,11 +149,13 @@ public class TabRefeicaoController {
             }
         }
 
-        tabMacronutrienteObj.setTxProteina(txProteinaTotal.toString());
-        tabMacronutrienteObj.setTxCarboidrato(txCarboidratoTotal.toString());
-        tabMacronutrienteObj.setTxGordura(txGorduraTotal.toString());
+        DecimalFormat df = new DecimalFormat("#.##");
+        tabMacronutrienteObj.setTxProteina(df.format(txProteinaTotal));
+        tabMacronutrienteObj.setTxCarboidrato(df.format(txCarboidratoTotal));
+        tabMacronutrienteObj.setTxGordura(df.format(txGorduraTotal));
+        tabMacronutrienteObj.setTxAgua(df.format(txAguaTotal));
+
         tabMacronutrienteObj.setTxKcal(txKcalTotal.toString());
-        tabMacronutrienteObj.setTxAgua(txAguaTotal.toString());
 
         return ResponseEntity.ok(tabMacronutrienteObj);
     }
