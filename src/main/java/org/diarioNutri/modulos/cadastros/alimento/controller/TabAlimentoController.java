@@ -3,9 +3,13 @@ package org.diarioNutri.modulos.cadastros.alimento.controller;
 import jakarta.validation.Valid;
 import org.diarioNutri.dao.cadastros.alimento.TabAlimentoObj;
 import org.diarioNutri.dao.cadastros.refeicao.DTO.TabRefeicaoDTO;
+import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
+import org.diarioNutri.dao.cadastros.refeicaoalimento.TabRefeicaoAlimentoObj;
 import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
+import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 import org.diarioNutri.modulos.cadastros.alimento.service.TabAlimentoService;
 import org.diarioNutri.modulos.cadastros.refeicao.service.TabRefeicaoService;
+import org.diarioNutri.modulos.cadastros.refeicaoalimento.TabRefeicaoAlimentoService;
 import org.diarioNutri.modulos.cadastros.usuario.service.TabUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/alimento")
@@ -29,6 +34,9 @@ public class TabAlimentoController {
 
     @Autowired
     private TabUsuarioService tabUsuarioService;
+
+    @Autowired
+    private TabRefeicaoAlimentoService tabRefeicaoAlimentoService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/gravar")
@@ -83,6 +91,27 @@ public class TabAlimentoController {
     public void excluir(@PathVariable Integer cdAlimento){
         tabAlimentoService.encontrarPorCdAlimento(cdAlimento).map(tabAlimentoObj -> tabAlimentoService.excluir(tabAlimentoObj))
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/adicionaralimento/{cdAlimento}/{cdRefeicao}")
+    public void adicionaralimento(@PathVariable Integer cdAlimento, @PathVariable Integer cdRefeicao) {
+        Optional<TabRefeicaoObj> tabRefeicaoObjOptional = tabRefeicaoService.encontrarPorCdRefeicao(cdRefeicao);
+        Optional<TabAlimentoObj> tabAlimentoObjOptional = tabAlimentoService.encontrarPorCdAlimento(cdAlimento);
+        TabRefeicaoObj tabRefeicaoObj = new TabRefeicaoObj();
+        TabAlimentoObj tabAlimentoObj = new TabAlimentoObj();
+
+        if (tabRefeicaoObjOptional.isPresent()) {
+            tabRefeicaoObj = tabRefeicaoObjOptional.get();
+        }
+        if (tabAlimentoObjOptional.isPresent()) {
+            tabAlimentoObj = tabAlimentoObjOptional.get();
+        }
+
+        TabRefeicaoAlimentoObj tabRefeicaoAlimentoObj = new TabRefeicaoAlimentoObj();
+        tabRefeicaoAlimentoObj.setTabAlimentoObj(tabAlimentoObj);
+        tabRefeicaoAlimentoObj.setTabUsuarioObj(tabRefeicaoObj.getTabUsuarioObj());
+        tabRefeicaoAlimentoObj.setTabRefeicaoObj(tabRefeicaoObj);
+        tabRefeicaoAlimentoObj = tabRefeicaoAlimentoService.gravar(tabRefeicaoAlimentoObj);
     }
 }
 

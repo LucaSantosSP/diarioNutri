@@ -49,4 +49,16 @@ public class TabAlimentoObj {
     @ManyToOne
     @JoinColumn(name = "cd_usuario")
     private TabUsuarioObj tabUsuarioObj;
+
+    @Column(name = "vl_fibra_alimentar")
+    @NotNull(message = "Campo fibra alimentar é obrigatório!")
+    private String vlFibraAlimentar;
+
+    @Column(name = "vl_colesterol")
+    @NotNull(message = "Campo colesterol é obrigatório!")
+    private String vlColesterol;
+
+    @Column(name = "vl_sodio")
+    @NotNull(message = "Campo sódio é obrigatório!")
+    private String vlSodio;
 }
