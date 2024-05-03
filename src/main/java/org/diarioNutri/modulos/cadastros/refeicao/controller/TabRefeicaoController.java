@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -82,6 +83,15 @@ public class TabRefeicaoController {
         List<TabRefeicaoAlimentoObj> tabRefeicaoAlimentoObjList = tabRefeicaoAlimentoService.findRefeicaoAlimento(cdUsuario, cdRefeicao);
         if(!tabRefeicaoAlimentoObjList.isEmpty()){
             return ResponseEntity.ok(tabRefeicaoAlimentoObjList);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/refeicoesdia/{cdUsuario}/{dtRefeicao}")
+    public ResponseEntity refeicoesDia (@PathVariable Integer cdUsuario, @PathVariable LocalDate dtRefeicao){
+        List<TabRefeicaoObj> tabRefeicaoObjList = tabRefeicaoService.findRefeicaoByData(cdUsuario, dtRefeicao);
+        if(!tabRefeicaoObjList.isEmpty()){
+            return ResponseEntity.ok(tabRefeicaoObjList);
         }
         return ResponseEntity.notFound().build();
     }
