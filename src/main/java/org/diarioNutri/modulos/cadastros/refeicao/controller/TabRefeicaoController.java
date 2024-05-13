@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -169,4 +170,43 @@ public class TabRefeicaoController {
 
         return ResponseEntity.ok(tabMacronutrienteObj);
     }
+
+    @GetMapping("/macronutrientesbydate/{cdUsuario}/{dtRefeicao}")
+    public ResponseEntity macronutrientesDate (@PathVariable Integer cdUsuario, @PathVariable LocalDate dtRefeicao){
+
+        List<TabRefeicaoAlimentoObj> tabRefeicaoAlimentoObjList = tabRefeicaoAlimentoService.findByCdUsuarioAndDate(cdUsuario, dtRefeicao);
+        TabMacronutrienteObj tabMacronutrienteObj = new TabMacronutrienteObj();
+
+        Double txProteinaTotal = 0.0;
+        Double txCarboidratoTotal = 0.0;
+        Double txGorduraTotal = 0.0;
+        Integer txKcalTotal = 0;
+        Double txAguaTotal = 0.0;
+
+        for (TabRefeicaoAlimentoObj tabRefeicaoAlimentoObj : tabRefeicaoAlimentoObjList){
+            if (tabRefeicaoAlimentoObj.getTabAlimentoObj() != null && tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlProteina() != null){
+                txProteinaTotal = txProteinaTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlProteina());
+            }
+            if (tabRefeicaoAlimentoObj.getTabAlimentoObj() != null && tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlCarboidrato() != null){
+                txCarboidratoTotal = txCarboidratoTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlCarboidrato());
+            }
+            if (tabRefeicaoAlimentoObj.getTabAlimentoObj() != null && tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlGordura() != null){
+                txGorduraTotal = txGorduraTotal + Double.parseDouble(tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlGordura());
+            }
+            if (tabRefeicaoAlimentoObj.getTabAlimentoObj() != null && tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlKcal() != null){
+                txKcalTotal = txKcalTotal + tabRefeicaoAlimentoObj.getTabAlimentoObj().getVlKcal();
+            }
+        }
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        tabMacronutrienteObj.setTxProteina(df.format(txProteinaTotal));
+        tabMacronutrienteObj.setTxCarboidrato(df.format(txCarboidratoTotal));
+        tabMacronutrienteObj.setTxGordura(df.format(txGorduraTotal));
+        tabMacronutrienteObj.setTxAgua(df.format(txAguaTotal));
+
+        tabMacronutrienteObj.setTxKcal(txKcalTotal.toString());
+
+        return ResponseEntity.ok(tabMacronutrienteObj);
+    }
+
 }
