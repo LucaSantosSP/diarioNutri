@@ -182,3 +182,7 @@ create table tab_receita(
     tx_ingredientes varchar(999),
     tx_preparo varchar(999)
 );
+
+ALTER TABLE tab_receita
+MODIFY COLUMN tx_ingredientes TEXT,
+MODIFY COLUMN tx_preparo TEXT;
