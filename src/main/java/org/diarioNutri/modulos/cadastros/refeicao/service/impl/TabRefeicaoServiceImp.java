@@ -52,6 +52,11 @@ public class TabRefeicaoServiceImp implements TabRefeicaoService {
     }
 
     @Override
+    public List<TabRefeicaoObj> findRefeicaoByData(Integer cdRefeicao, LocalDate dtRefeicao) {
+        return tabRefeicaoRepository.findRefeicaoByData(cdRefeicao, dtRefeicao);
+    }
+
+    @Override
     public List<TabRefeicaoObj> encontrarTodos() {
         return tabRefeicaoRepository.findAll();
     }
