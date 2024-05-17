@@ -5,6 +5,7 @@ import org.diarioNutri.dao.cadastros.refeicao.TabRefeicaoObj;
 import org.diarioNutri.dao.cadastros.refeicaotipo.TabRefeicaoTipoObj;
 import org.diarioNutri.dao.cadastros.usuario.TabUsuarioObj;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,4 +24,6 @@ public interface TabRefeicaoService {
     Boolean criarNovaRefeicao(TabUsuarioObj tabUsuarioObj);
 
     List<TabRefeicaoObj> refeicaoDiaria (Integer cdUsuario);
+
+    List<TabRefeicaoObj> findRefeicaoByData (Integer cdUsuario, LocalDate dtRefeicao);
 }

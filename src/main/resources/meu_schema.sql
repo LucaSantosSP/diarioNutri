@@ -171,3 +171,14 @@ ADD COLUMN vl_riboflavina varchar(10),
 ADD COLUMN vl_piridoxina varchar(10),
 ADD COLUMN vl_niacina varchar(10),
 ADD COLUMN vl_vitamina_c varchar(10);
+
+create table tab_receita(
+    cd_receita integer primary key auto_increment,
+    cd_usuario integer references tab_usuario (cd_usuario),
+    tx_titulo varchar(30),
+    tx_tipo varchar(30),
+    tx_foto varchar(999),
+    vl_kcal integer,
+    tx_ingredientes varchar(999),
+    tx_preparo varchar(999)
+);

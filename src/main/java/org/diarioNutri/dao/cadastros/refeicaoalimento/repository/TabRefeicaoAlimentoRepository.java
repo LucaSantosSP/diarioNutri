@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -20,4 +21,7 @@ public interface TabRefeicaoAlimentoRepository extends JpaRepository<TabRefeicao
 
     @Query("select t from TabRefeicaoAlimentoObj t where t.tabUsuarioObj.cdUsuario = ?1 and t.tabRefeicaoObj.dtRefeicao = CURRENT_DATE()")
     List<TabRefeicaoAlimentoObj> findByCdUsuarioAndDay(Integer cdUsuario);
+
+    @Query("select t from TabRefeicaoAlimentoObj t where t.tabUsuarioObj.cdUsuario = ?1 and t.tabRefeicaoObj.dtRefeicao = ?2")
+    List<TabRefeicaoAlimentoObj> findByCdUsuarioAndDate(Integer cdUsuario, LocalDate dtRefeicao);
 }
